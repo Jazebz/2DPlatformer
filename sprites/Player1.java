@@ -387,18 +387,24 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 	@Override
 	public void update(Universe universe, KeyboardInput keyboard, long actual_delta_time) {
 		boolean onGround = isOnGround(universe);
-					// RIGHT
-					if (keyboard.keyDown(39)) {
-						velocityX = MAX_VELOCITY_X;
+			if(keyboard.keyDown(16)) {
+				speed = 1.5;
+			}
+			else {
+				speed = 1;
+			}
+			// RIGHT
+			if (keyboard.keyDown(39)) {
+				velocityX = MAX_VELOCITY_X * speed;
 						
-					}
-					// LEFT
-					else if (keyboard.keyDown(37)) {
-							velocityX = - MAX_VELOCITY_X;
-					}
-					else {
-						this.velocityX = 0;
-					}
+			}
+			// LEFT
+			else if (keyboard.keyDown(37)) {
+					velocityX = - MAX_VELOCITY_X * speed;
+			}
+			else {
+				this.velocityX = 0;
+			}
 		if (onGround) {
 
 			if (keyboard.keyDown(32) || keyboard.keyDown(38)) {

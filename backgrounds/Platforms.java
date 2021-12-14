@@ -38,16 +38,16 @@ public class Platforms implements Background {
 		{7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7},
 		{7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7},
 		{2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2},
-		{7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7},
-		{7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7},
-		{7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7},
-		{7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7}
+		{8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8},
+		{8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8},
+		{8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8},
+		{8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8}
 	};
     
     public Platforms() {
     	try {
     		this.cobblePath = ImageIO.read(new File("res/tiles/cobblepath.png"));
-    		this.mossTile = ImageIO.read(new File("res/tiles/mosstile.png"));
+    		this.mossTile = ImageIO.read(new File("res/tiles/grass.png"));
     		this.redBrick = ImageIO.read(new File("res/tiles/redbrick.png"));
     		this.horizontalWood = ImageIO.read(new File("res/tiles/horizontalwood.png"));
     		this.doorWood = ImageIO.read(new File("res/tiles/doorwood.png"));
@@ -61,7 +61,12 @@ public class Platforms implements Background {
     		this.crackedStone = ImageIO.read(new File("res/tiles/crackedstone.png"));
     		this.quadBrick = ImageIO.read(new File("res/tiles/quadgreybrick.png"));
     		this.brownCobble = ImageIO.read(new File("res/tiles/browncobble.png"));
-    		this.defaultTile = ImageIO.read(new File("res/tiles/default.png"));
+    	}
+    	catch (IOException e) {
+    		
+    	}
+    	try {
+    		this.defaultTile = ImageIO.read(new File("res/tiles/sky.png"));
     	}
     	catch (IOException e) {
     		
@@ -102,7 +107,7 @@ public class Platforms implements Background {
 			image = defaultTile;
 		}
 		else if (map[row][col] == 8) {
-			image = quadBrick;
+			image = brownCobble;
 		}
 		else if (map[row][col] == 9) {
 			image = crackedStone;
