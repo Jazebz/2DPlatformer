@@ -49,6 +49,7 @@ public class AnimationFrame extends JFrame {
 	private DisplayableSprite player1 = null;
 	private ArrayList<DisplayableSprite> sprites = null;
 	private Background background = null;
+	private Background background1 = null;
 	boolean centreOnPlayer = false;
 	int universeLevel = 0;
 	
@@ -282,6 +283,7 @@ public class AnimationFrame extends JFrame {
 			}
 
 			paintBackground(g, background);
+			paintBackground(g, background1);
 
 			for (DisplayableSprite activeSprite : sprites) {
 				DisplayableSprite sprite = activeSprite;
