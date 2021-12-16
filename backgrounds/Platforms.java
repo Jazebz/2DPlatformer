@@ -21,7 +21,7 @@ public class Platforms implements Background {
     private Image crackedStone;
     private Image quadBrick;
     private Image verticalWood;
-    private Image brownCobble;
+    private Image middleDirt;
     private int maxCols = 0;
     private int maxRows = 0;
     
@@ -51,7 +51,7 @@ public class Platforms implements Background {
     public Platforms() {
     	try {
     		this.cobblePath = ImageIO.read(new File("res/tiles/cobblepath.png"));
-    		this.mossTile = ImageIO.read(new File("res/tiles/grassold.png"));
+    		this.mossTile = ImageIO.read(new File("res/tiles/middlegrass.png"));
     		this.redBrick = ImageIO.read(new File("res/tiles/redbrick.png"));
     		this.horizontalWood = ImageIO.read(new File("res/tiles/horizontalwood.png"));
     		this.doorWood = ImageIO.read(new File("res/tiles/doorwood.png"));
@@ -64,7 +64,7 @@ public class Platforms implements Background {
     		this.mossCobble = ImageIO.read(new File("res/tiles/mosscobble.png"));
     		this.crackedStone = ImageIO.read(new File("res/tiles/crackedstone.png"));
     		this.quadBrick = ImageIO.read(new File("res/tiles/quadgreybrick.png"));
-    		this.brownCobble = ImageIO.read(new File("res/tiles/browncobble.png"));
+    		this.middleDirt = ImageIO.read(new File("res/tiles/middledarkdirt.png"));
     	}
     	catch (IOException e) {
     		
@@ -111,7 +111,7 @@ public class Platforms implements Background {
 			image = defaultTile;
 		}
 		else if (map[row][col] == 8) {
-			image = brownCobble;
+			image = middleDirt;
 		}
 		else if (map[row][col] == 9) {
 			image = crackedStone;
