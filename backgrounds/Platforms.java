@@ -11,16 +11,16 @@ public class Platforms implements Background {
 
     protected static int TILE_WIDTH = 50;
     protected static int TILE_HEIGHT = 50;
-    private Image mossCobble;
+    private Image dirtAtTop2;
     private Image mossTile;
-    private Image cobblePath;
-    private Image redBrick;
+    private Image fullDirt;
+    private Image dirtAtTop;
     private Image defaultTile;
     private Image horizontalWood;
     private Image doorWood;
     private Image crackedStone;
     private Image quadBrick;
-    private Image verticalWood;
+    private Image blankDirt;
     private Image middleDirt;
     private int maxCols = 0;
     private int maxRows = 0;
@@ -38,11 +38,11 @@ public class Platforms implements Background {
 		{7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7},
 		{7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7},
 		{2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2},
-		{8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8},
-		{8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8},
-		{8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8},
-		{8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8},
-		{8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8},
+		{8,1,8,1,5,8,4,8,4,3,8,1,4,3,1,8,8,3,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8},
+		{8,8,5,8,8,8,3,8,8,8,1,8,3,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8},
+		{8,8,5,8,8,5,8,8,8,8,8,3,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8},
+		{8,8,8,8,5,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8},
+		{8,8,5,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8},
 		{8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8},
 		{8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8},
 		{8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8}
@@ -50,9 +50,9 @@ public class Platforms implements Background {
     
     public Platforms() {
     	try {
-    		this.cobblePath = ImageIO.read(new File("res/tiles/cobblepath.png"));
+    		this.fullDirt = ImageIO.read(new File("res/tiles/fulldirt.png"));
     		this.mossTile = ImageIO.read(new File("res/tiles/middlegrass.png"));
-    		this.redBrick = ImageIO.read(new File("res/tiles/redbrick.png"));
+    		this.dirtAtTop = ImageIO.read(new File("res/tiles/dirtattop.png"));
     		this.horizontalWood = ImageIO.read(new File("res/tiles/horizontalwood.png"));
     		this.doorWood = ImageIO.read(new File("res/tiles/doorwood.png"));
     	}
@@ -60,8 +60,8 @@ public class Platforms implements Background {
     		
     	}
     	try {
-    		this.verticalWood = ImageIO.read(new File("res/tiles/verticalwood.png"));
-    		this.mossCobble = ImageIO.read(new File("res/tiles/mosscobble.png"));
+    		this.blankDirt = ImageIO.read(new File("res/tiles/blankdirt.png"));
+    		this.dirtAtTop2 = ImageIO.read(new File("res/tiles/dirtattop2.png"));
     		this.crackedStone = ImageIO.read(new File("res/tiles/crackedstone.png"));
     		this.quadBrick = ImageIO.read(new File("res/tiles/quadgreybrick.png"));
     		this.middleDirt = ImageIO.read(new File("res/tiles/middledarkdirt.png"));
@@ -90,19 +90,19 @@ public class Platforms implements Background {
 			image = mossTile;
 		}
 		else if (map[row][col] == 1) {
-			image = redBrick;
+			image = dirtAtTop;
 		}
 		else if (map[row][col] == 2) {
 			image = mossTile;
 		}
 		else if (map[row][col] == 3) {
-			image = mossCobble;
+			image = dirtAtTop2;
 		}
 		else if (map[row][col] == 4) {
-			image = cobblePath;
+			image = fullDirt;
 		}
 		else if (map[row][col] == 5) {
-			image = verticalWood;
+			image = blankDirt;
 		}
 		else if (map[row][col] == 6) {
 			image = doorWood;
