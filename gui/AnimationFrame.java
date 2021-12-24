@@ -278,8 +278,23 @@ public class AnimationFrame extends JFrame {
 			}
 
 			if (player1 != null && centreOnPlayer) {
-				xCenter = player1.getCenterX();
-				yCenter = player1.getCenterY();     
+				//Move Right
+				if ((xCenter - player1.getCenterX() < - 250)) {
+					xCenter = player1.getCenterX() - 250;
+				}
+				//Move Left
+				else if((xCenter - player1.getCenterX() > 250)) {
+					xCenter = player1.getCenterX() + 250;
+				}
+				//Move Up
+				if ((yCenter - player1.getCenterY() < - 200)) {
+					yCenter = player1.getCenterY() - 200;
+				}
+				//Move Down
+				else if((yCenter - player1.getCenterY() > 200)) {
+					yCenter = player1.getCenterY() + 200;
+				}
+   
 			}
 
 			paintBackground(g, background);

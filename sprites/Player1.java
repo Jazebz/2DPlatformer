@@ -386,6 +386,12 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 
 	@Override
 	public void update(Universe universe, KeyboardInput keyboard, long actual_delta_time) {
+		//Respawn
+		if(this.centerY > 2500) {
+			this.centerY = 100;
+			this.centerX = 100;
+			this.velocityY = 0;
+		}
 		boolean onGround = isOnGround(universe);
 			if(keyboard.keyDown(16)) {
 				speed = 1.5;

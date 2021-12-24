@@ -15,7 +15,7 @@ public class MappedUniverse implements Universe {
 		background = new Platforms();
 		ArrayList<DisplayableSprite> barriers = ((Platforms)background).getBarriers();
 		
-		player1 = new Player1(Platforms.TILE_HEIGHT * 2, Platforms.TILE_WIDTH * 2);
+		player1 = new Player1(Platforms.TILE_HEIGHT * 2, Platforms.TILE_WIDTH * 2 + 280);
 		
 		sprites.add(player1);
 		sprites.addAll(barriers);
