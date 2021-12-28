@@ -64,7 +64,7 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 		
 		if (walkingUpOne == null) {
 			try {
-				walkingUpOne = ImageIO.read(new File("res/jaz/Marioman/Walkingup1.png"));
+				walkingUpOne = ImageIO.read(new File("res/sprites/Marioman/Walkingup1.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -72,7 +72,7 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 		}
 		if (walkingUpTwo == null) {
 			try {
-				walkingUpTwo = ImageIO.read(new File("res/jaz/Marioman/Walkingup2.png"));
+				walkingUpTwo = ImageIO.read(new File("res/sprites/Marioman/Walkingup2.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -80,7 +80,7 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 		}
 		if (walkingUpThree == null) {
 			try {
-				walkingUpThree = ImageIO.read(new File("res/jaz/Marioman/Walkingup3.png"));
+				walkingUpThree = ImageIO.read(new File("res/sprites/Marioman/Walkingup3.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -88,7 +88,7 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 		}
 		if (walkingUpFour == null) {
 			try {
-				walkingUpFour = ImageIO.read(new File("res/jaz/Marioman/Walkingup4.png"));
+				walkingUpFour = ImageIO.read(new File("res/sprites/Marioman/Walkingup4.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -96,7 +96,7 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 		}
 		if (walkingDownOne == null) {
 			try {
-				walkingDownOne = ImageIO.read(new File("res/jaz/Marioman/Walkingdown1.png"));
+				walkingDownOne = ImageIO.read(new File("res/sprites/Marioman/Walkingdown1.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -104,7 +104,7 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 		}
 		if (walkingDownTwo == null) {
 			try {
-				walkingDownTwo = ImageIO.read(new File("res/jaz/Marioman/Walkingdown2.png"));
+				walkingDownTwo = ImageIO.read(new File("res/sprites/Marioman/Walkingdown2.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -112,7 +112,7 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 		}
 		if (walkingDownThree == null) {
 			try {
-				walkingDownThree = ImageIO.read(new File("res/jaz/Marioman/Walkingdown3.png"));
+				walkingDownThree = ImageIO.read(new File("res/sprites/Marioman/Walkingdown3.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -120,7 +120,7 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 		}
 		if (walkingDownFour == null) {
 			try {
-				walkingDownFour = ImageIO.read(new File("res/jaz/Marioman/Walkingdown4.png"));
+				walkingDownFour = ImageIO.read(new File("res/sprites/Marioman/Walkingdown4.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -128,7 +128,7 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 		}
 		if (walkingRightOne == null) {
 			try {
-				walkingRightOne = ImageIO.read(new File("res/jaz/Marioman/Walkingright1.png"));
+				walkingRightOne = ImageIO.read(new File("res/sprites/Marioman/Walkingright1.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -136,7 +136,7 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 		}
 		if (walkingRightTwo == null) {
 			try {
-				walkingRightTwo = ImageIO.read(new File("res/jaz/Marioman/Walkingright2.png"));
+				walkingRightTwo = ImageIO.read(new File("res/sprites/Marioman/Walkingright2.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -144,7 +144,7 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 		}
 		if (walkingRightThree == null) {
 			try {
-				walkingRightThree = ImageIO.read(new File("res/jaz/Marioman/Walkingright3.png"));
+				walkingRightThree = ImageIO.read(new File("res/sprites/Marioman/Walkingright3.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -152,7 +152,7 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 		}
 		if (walkingRightFour == null) {
 			try {
-				walkingRightFour = ImageIO.read(new File("res/jaz/Marioman/Walkingright4.png"));
+				walkingRightFour = ImageIO.read(new File("res/sprites/Marioman/Walkingright4.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -160,7 +160,7 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 		}
 		if (walkingLeftOne == null) {
 			try {
-				walkingLeftOne = ImageIO.read(new File("res/jaz/Marioman/Walkingleft1.png"));
+				walkingLeftOne = ImageIO.read(new File("res/sprites/Marioman/Walkingleft1.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -168,7 +168,7 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 		}
 		if (walkingLeftTwo == null) {
 			try {
-				walkingLeftTwo = ImageIO.read(new File("res/jaz/Marioman/Walkingleft2.png"));
+				walkingLeftTwo = ImageIO.read(new File("res/sprites/Marioman/Walkingleft2.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -176,7 +176,7 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 		}
 		if (walkingLeftThree == null) {
 			try {
-				walkingLeftThree = ImageIO.read(new File("res/jaz/Marioman/Walkingleft3.png"));
+				walkingLeftThree = ImageIO.read(new File("res/sprites/Marioman/Walkingleft3.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -184,7 +184,7 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 		}
 		if (walkingLeftFour == null) {
 			try {
-				walkingLeftFour = ImageIO.read(new File("res/jaz/Marioman/Walkingleft4.png"));
+				walkingLeftFour = ImageIO.read(new File("res/sprites/Marioman/Walkingleft4.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
