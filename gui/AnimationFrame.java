@@ -48,8 +48,8 @@ public class AnimationFrame extends JFrame {
 	private Animation animation = null;
 	private DisplayableSprite player1 = null;
 	private ArrayList<DisplayableSprite> sprites = null;
-	private Background background = null;
-	private Background background1 = null;
+	private Background platforms = null;
+	private Background skyBackground = null;
 	boolean centreOnPlayer = false;
 	int universeLevel = 0;
 	
@@ -164,7 +164,8 @@ public class AnimationFrame extends JFrame {
 
 			sprites = universe.getSprites();
 			player1 = universe.getPlayer1();
-			background = universe.getBackground();
+			platforms = universe.getPlatforms();
+			skyBackground = universe.getBackground();
 			centreOnPlayer = universe.centerOnPlayer();
 			this.scale = universe.getScale();
 			this.xCenter = universe.getXCenter();
@@ -276,7 +277,6 @@ public class AnimationFrame extends JFrame {
 			if (universe == null) {
 				return;
 			}
-
 			if (player1 != null && centreOnPlayer) {
 				//Move Right
 				if ((xCenter - player1.getCenterX() < - 250)) {
@@ -294,11 +294,11 @@ public class AnimationFrame extends JFrame {
 				else if((yCenter - player1.getCenterY() > 200)) {
 					yCenter = player1.getCenterY() + 200;
 				}
-   
+	   
 			}
-
-			paintBackground(g, background);
-			paintBackground(g, background1);
+			
+			paintBackground(g, skyBackground);
+			paintBackground(g, platforms);
 
 			for (DisplayableSprite activeSprite : sprites) {
 				DisplayableSprite sprite = activeSprite;
@@ -331,14 +331,13 @@ public class AnimationFrame extends JFrame {
 		}
 
 		private void paintBackground(Graphics g, Background background) {
-
+			
 			if ((g == null) || (background == null)) {
 				return;
 			}
-			
-			//what tile covers the top-left corner?
-			double xTopLeft = ( xCenter - (xpCenter / scale));
-			double yTopLeft =  (yCenter - (ypCenter / scale)) ;
+				//what tile covers the top-left corner?
+				double xTopLeft =  (xCenter - (xpCenter / scale));
+				double yTopLeft =  (yCenter - (ypCenter / scale));
 			
 			int row = background.getRow((int)yTopLeft);
 			int col = background.getCol((int)xTopLeft);

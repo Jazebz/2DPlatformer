@@ -4,7 +4,8 @@ public class MappedUniverse implements Universe {
 
 
 	private boolean complete = false;	
-	private Background background = null;	
+	private Background platforms = null;	
+	private Background background = null;
 	private DisplayableSprite player1 = null;
 	private ArrayList<DisplayableSprite> sprites = new ArrayList<DisplayableSprite>();
 	private double xCenter = 0;
@@ -12,8 +13,10 @@ public class MappedUniverse implements Universe {
 
 	public MappedUniverse () {
 
-		background = new Platforms();
-		ArrayList<DisplayableSprite> barriers = ((Platforms)background).getBarriers();
+		platforms = new Platforms();
+		background = new SkyBackground();
+		
+		ArrayList<DisplayableSprite> barriers = ((Platforms)platforms).getBarriers();
 		
 		player1 = new Player1(Platforms.TILE_HEIGHT * 2, Platforms.TILE_WIDTH * 2 + 280);
 		
@@ -50,6 +53,9 @@ public class MappedUniverse implements Universe {
 		complete = true;
 	}
 
+	public Background getPlatforms() {
+		return platforms;
+	}
 	public Background getBackground() {
 		return background;
 	}
