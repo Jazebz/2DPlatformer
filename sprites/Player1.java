@@ -16,22 +16,30 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 	TwoDimensionBounce bounce;
 	
 	private static final int VELOCITY = 200;
-	Image walkingUpOne = null;
-	Image walkingUpTwo = null;
-	Image walkingUpThree = null;
-	Image walkingUpFour = null;
-	Image walkingDownOne = null;
-	Image walkingDownTwo = null;
-	Image walkingDownThree = null;
-	Image walkingDownFour = null;
+	Image idleRightOne = null;
+	Image idleRightTwo = null;
+	Image idleRightThree = null;
+	Image idleRightFour = null;
+	Image idleLeftOne = null;
+	Image idleLeftTwo = null;
+	Image idleLeftThree = null;
+	Image idleLeftFour = null;
 	Image walkingRightOne = null;
 	Image walkingRightTwo = null;
 	Image walkingRightThree = null;
 	Image walkingRightFour = null;
+	Image walkingRightFive = null;
+	Image walkingRightSix = null;
 	Image walkingLeftOne = null;
 	Image walkingLeftTwo = null;
 	Image walkingLeftThree = null;
 	Image walkingLeftFour = null;
+	Image walkingLeftFive = null;
+	Image walkingLeftSix = null;
+	Image jumpingRightUp = null;
+	Image jumpingRightDown = null;
+	Image jumpingLeftUp = null;
+	Image jumpingLeftDown = null;
 	private double centerX = 0.0;
 	private double centerY = 0.0;
 	private double height = 65.0;
@@ -43,10 +51,11 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 	private boolean isAtExit = false;
 	private long score = 0;
 	private double currentFrame;
-	private double frameRate = 0.05;
+	private double frameRate = 0.075;
 	private double speed = 1;
 	private boolean dash = false;
-	private String currentAnimation;
+	private int currentAnimationX = 1;
+	private boolean idle = true;
 	private double dashCoolDown = 0;
 	
 	
@@ -62,65 +71,65 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 		collisionDetection.setBounceFactorY(0);
 		bounce = new TwoDimensionBounce();
 		
-		if (walkingUpOne == null) {
+		if (idleRightOne == null) {
 			try {
-				walkingUpOne = ImageIO.read(new File("res/sprites/Marioman/Walkingup1.png"));
+				idleRightOne = ImageIO.read(new File("res/sprites/Fox/Idleright/Idleright1.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
 			}		
 		}
-		if (walkingUpTwo == null) {
+		if (idleRightTwo == null) {
 			try {
-				walkingUpTwo = ImageIO.read(new File("res/sprites/Marioman/Walkingup2.png"));
+				idleRightTwo = ImageIO.read(new File("res/sprites/Fox/Idleright/Idleright2.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
 			}		
 		}
-		if (walkingUpThree == null) {
+		if (idleRightThree == null) {
 			try {
-				walkingUpThree = ImageIO.read(new File("res/sprites/Marioman/Walkingup3.png"));
+				idleRightThree = ImageIO.read(new File("res/sprites/Fox/Idleright/Idleright3.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
 			}		
 		}
-		if (walkingUpFour == null) {
+		if (idleRightFour == null) {
 			try {
-				walkingUpFour = ImageIO.read(new File("res/sprites/Marioman/Walkingup4.png"));
+				idleRightFour = ImageIO.read(new File("res/sprites/Fox/Idleright/Idleright4.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
 			}		
 		}
-		if (walkingDownOne == null) {
+		if (idleLeftOne == null) {
 			try {
-				walkingDownOne = ImageIO.read(new File("res/sprites/Marioman/Walkingdown1.png"));
+				idleLeftOne = ImageIO.read(new File("res/sprites/Fox/Idleleft/Idleleft1.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
 			}		
 		}
-		if (walkingDownTwo == null) {
+		if (idleLeftTwo == null) {
 			try {
-				walkingDownTwo = ImageIO.read(new File("res/sprites/Marioman/Walkingdown2.png"));
+				idleLeftTwo = ImageIO.read(new File("res/sprites/Fox/Idleleft/Idleleft2.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
 			}		
 		}
-		if (walkingDownThree == null) {
+		if (idleLeftThree == null) {
 			try {
-				walkingDownThree = ImageIO.read(new File("res/sprites/Marioman/Walkingdown3.png"));
+				idleLeftThree = ImageIO.read(new File("res/sprites/Fox/Idleleft/Idleleft3.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
 			}		
 		}
-		if (walkingDownFour == null) {
+		if (idleLeftFour == null) {
 			try {
-				walkingDownFour = ImageIO.read(new File("res/sprites/Marioman/Walkingdown4.png"));
+				idleLeftFour = ImageIO.read(new File("res/sprites/Fox/Idleleft/Idleleft4.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -128,7 +137,7 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 		}
 		if (walkingRightOne == null) {
 			try {
-				walkingRightOne = ImageIO.read(new File("res/sprites/Marioman/Walkingright1.png"));
+				walkingRightOne = ImageIO.read(new File("res/sprites/Fox/Walkingright/Walkingright1.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -136,7 +145,7 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 		}
 		if (walkingRightTwo == null) {
 			try {
-				walkingRightTwo = ImageIO.read(new File("res/sprites/Marioman/Walkingright2.png"));
+				walkingRightTwo = ImageIO.read(new File("res/sprites/Fox/Walkingright/Walkingright2.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -144,7 +153,7 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 		}
 		if (walkingRightThree == null) {
 			try {
-				walkingRightThree = ImageIO.read(new File("res/sprites/Marioman/Walkingright3.png"));
+				walkingRightThree = ImageIO.read(new File("res/sprites/Fox/Walkingright/Walkingright3.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -152,7 +161,23 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 		}
 		if (walkingRightFour == null) {
 			try {
-				walkingRightFour = ImageIO.read(new File("res/sprites/Marioman/Walkingright4.png"));
+				walkingRightFour = ImageIO.read(new File("res/sprites/Fox/Walkingright/Walkingright4.png"));
+			}
+			catch (IOException e) {
+				System.out.println(e.toString());
+			}		
+		}
+		if (walkingRightFive == null) {
+			try {
+				walkingRightFive = ImageIO.read(new File("res/sprites/Fox/Walkingright/Walkingright5.png"));
+			}
+			catch (IOException e) {
+				System.out.println(e.toString());
+			}		
+		}
+		if (walkingRightSix == null) {
+			try {
+				walkingRightSix = ImageIO.read(new File("res/sprites/Fox/Walkingright/Walkingright6.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -160,7 +185,7 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 		}
 		if (walkingLeftOne == null) {
 			try {
-				walkingLeftOne = ImageIO.read(new File("res/sprites/Marioman/Walkingleft1.png"));
+				walkingLeftOne = ImageIO.read(new File("res/sprites/Fox/Walkingleft/Walkingleft1.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -168,7 +193,7 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 		}
 		if (walkingLeftTwo == null) {
 			try {
-				walkingLeftTwo = ImageIO.read(new File("res/sprites/Marioman/Walkingleft2.png"));
+				walkingLeftTwo = ImageIO.read(new File("res/sprites/Fox/Walkingleft/Walkingleft2.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -176,7 +201,7 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 		}
 		if (walkingLeftThree == null) {
 			try {
-				walkingLeftThree = ImageIO.read(new File("res/sprites/Marioman/Walkingleft3.png"));
+				walkingLeftThree = ImageIO.read(new File("res/sprites/Fox/Walkingleft/Walkingleft3.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -184,7 +209,55 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 		}
 		if (walkingLeftFour == null) {
 			try {
-				walkingLeftFour = ImageIO.read(new File("res/sprites/Marioman/Walkingleft4.png"));
+				walkingLeftFour = ImageIO.read(new File("res/sprites/Fox/Walkingleft/Walkingleft4.png"));
+			}
+			catch (IOException e) {
+				System.out.println(e.toString());
+			}		
+		}
+		if (walkingLeftFive == null) {
+			try {
+				walkingLeftFive = ImageIO.read(new File("res/sprites/Fox/Walkingleft/Walkingleft5.png"));
+			}
+			catch (IOException e) {
+				System.out.println(e.toString());
+			}		
+		}
+		if (walkingLeftSix == null) {
+			try {
+				walkingLeftSix = ImageIO.read(new File("res/sprites/Fox/Walkingleft/Walkingleft6.png"));
+			}
+			catch (IOException e) {
+				System.out.println(e.toString());
+			}		
+		}
+		if (jumpingRightUp == null) {
+			try {
+				jumpingRightUp = ImageIO.read(new File("res/sprites/Fox/Jumpingright/Up.png"));
+			}
+			catch (IOException e) {
+				System.out.println(e.toString());
+			}		
+		}
+		if (jumpingRightDown == null) {
+			try {
+				jumpingRightDown = ImageIO.read(new File("res/sprites/Fox/Jumpingright/Down.png"));
+			}
+			catch (IOException e) {
+				System.out.println(e.toString());
+			}		
+		}
+		if (jumpingLeftUp == null) {
+			try {
+				jumpingLeftUp = ImageIO.read(new File("res/sprites/Fox/Jumpingleft/Up.png"));
+			}
+			catch (IOException e) {
+				System.out.println(e.toString());
+			}		
+		}
+		if (jumpingLeftDown == null) {
+			try {
+				jumpingLeftDown = ImageIO.read(new File("res/sprites/Fox/Jumpingleft/Down.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -222,71 +295,67 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 	@Override
 	public Image getImage() {
 		//Sprite Animation (Changes Image)
-		currentFrame += frameRate * speed;
+		if(idle == false) {
+			currentFrame += frameRate * speed;
+		}
+		else {
+			currentFrame += frameRate;
+		}
 		if((velocityX != 0) || (velocityY != 0)) {
+			if(velocityX > 0) {
+				currentAnimationX = 1;
+			}
+			if(velocityX < 0) {
+				currentAnimationX = -1;
+			}
 			//Up
 			if(velocityY < 0) {
-				if(currentAnimation != "up") {
-					currentFrame = 0;
+				if(currentAnimationX == 1) {
+					return jumpingRightUp;
 				}
-				currentAnimation = "up";
-				if((int)currentFrame == 0) {
-					return walkingUpOne;
-				}
-				else if ((int)currentFrame == 1) {
-					return walkingUpTwo;
-				}
-				else if((int)currentFrame == 2) {
-					return walkingUpThree;
-				}
-				else if((int)currentFrame == 3){
-					return walkingUpFour;
+				else if(currentAnimationX == -1){
+					return jumpingLeftUp;
 				}
 				else {
-					currentFrame = 0;
-					return walkingUpOne;
+					return null;
 				}
+				
 			}
 			//Down
 			else if(velocityY > 0) {
-				if(currentAnimation != "down") {
-					currentFrame = 0;
+				if(currentAnimationX == 1) {
+					return jumpingRightDown;
 				}
-				currentAnimation = "down";
-				if((int)currentFrame == 0) {
-					return walkingDownOne;
-				}
-				else if ((int)currentFrame == 1) {
-					return walkingDownTwo;
-				}
-				else if((int)currentFrame == 2) {
-					return walkingDownThree;
-				}
-				else if((int)currentFrame == 3){
-					return walkingDownFour;
+				else if(currentAnimationX == -1){
+					return jumpingLeftDown;
 				}
 				else {
-					currentFrame = 0;
-					return walkingDownOne;
+					return null;
 				}
 			}
 			//Right
 			else if(velocityX > 0) {
-				if(currentAnimation != "right") {
+				if(currentAnimationX != 1 || idle == true) {
 					currentFrame = 0;
 				}
-				currentAnimation = "right";
+				idle = false;
 				if((int)currentFrame == 0) {
 					return walkingRightOne;
 				}
-				else if ((int)currentFrame == 1) {
+				else if((int)currentFrame == 1){
 					return walkingRightTwo;
 				}
-				else if((int)currentFrame == 2) {
+				else if((int)currentFrame == 2){
 					return walkingRightThree;
 				}
 				else if((int)currentFrame == 3){
 					return walkingRightFour;
+				}
+				else if((int)currentFrame == 4){
+					return walkingRightFive;
+				}
+				else if((int)currentFrame == 5){
+					return walkingRightSix;
 				}
 				else {
 					currentFrame = 0;
@@ -294,11 +363,11 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 				}
 			}
 			//Left
-			else {
-				if(currentAnimation != "left") {
+			else if(velocityX < 0){
+				if(currentAnimationX != -1 || idle == true) {
 					currentFrame = 0;
 				}
-				currentAnimation = "left";
+				idle = false;
 				if((int)currentFrame == 0) {
 					return walkingLeftOne;
 				}
@@ -311,25 +380,62 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 				else if((int)currentFrame == 3){
 					return walkingLeftFour;
 				}
+				else if((int)currentFrame == 4){
+					return walkingLeftFive;
+				}
+				else if((int)currentFrame == 5){
+					return walkingLeftSix;
+				}
 				else {
 					currentFrame = 0;
 					return walkingLeftOne;
 				}
 			}
+			else {
+				return null;
+			}
 		}
 		else {
-			currentFrame = 0;
-			if(currentAnimation == "right") {
-				return walkingRightOne;
+			if(currentAnimationX == -1) {
+				idle = true;
+				if((int)currentFrame == 0) {
+					return idleLeftOne;
+				}
+				else if ((int)currentFrame == 1) {
+					return idleLeftTwo;
+				}
+				else if((int)currentFrame == 2) {
+					return idleLeftThree;
+				}
+				else if((int)currentFrame == 3){
+					return idleLeftFour;
+				}
+				else {
+					currentFrame = 0;
+					return idleLeftOne;
+				}
 			}
-			else if(currentAnimation == "left") {
-				return walkingLeftOne;
-			}
-			else if(currentAnimation == "down") {
-				return walkingDownOne;
+			else if(currentAnimationX == 1){
+				idle = true;
+				if((int)currentFrame == 0) {
+					return idleRightOne;
+				}
+				else if ((int)currentFrame == 1) {
+					return idleRightTwo;
+				}
+				else if((int)currentFrame == 2) {
+					return idleRightThree;
+				}
+				else if((int)currentFrame == 3){
+					return idleRightFour;
+				}
+				else {
+					currentFrame = 0;
+					return idleRightOne;
+				}
 			}
 			else {
-				return walkingUpOne;
+				return null;
 			}
 		}
 	}
