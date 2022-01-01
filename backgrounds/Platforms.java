@@ -11,65 +11,73 @@ public class Platforms implements Background {
 
     protected static int TILE_WIDTH = 50;
     protected static int TILE_HEIGHT = 50;
-    private Image dirtAtTop2;
-    private Image mossTile;
-    private Image fullDirt;
-    private Image dirtAtTop;
-    private Image defaultTile;
+    private Image rightEdgeDirt;
+    private Image middleGrass;
+    private Image dirtRock;
+    private Image leftEdgeDirt;
+    private Image rightEdge;
     private Image horizontalWood;
-    private Image doorWood;
-    private Image crackedStone;
-    private Image quadBrick;
+    private Image leftEdge;
+    private Image middlePlatform;
+    private Image rightPlatform;
+    private Image leftPlatform;
+    private Image threeRockDirt;
     private Image blankDirt;
-    private Image middleDirt;
+    private Image rightWall;
+    private Image leftWall;
+    private Image middleBlank;
     private int maxCols = 0;
     private int maxRows = 0;
     
     private int map[][] = new int[][] { 
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2},
-		{8,1,8,1,5,8,4,8,4,3,8,1,4,3,1,8,8,3,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8},
-		{8,8,5,8,8,8,3,8,8,8,1,8,3,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8},
-		{8,8,5,8,8,5,8,8,8,8,8,3,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8},
-		{8,8,8,8,5,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8},
-		{8,8,5,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8},
-		{8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8},
-		{8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8},
-		{8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8}
+		{00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00},
+		{00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00},
+		{00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00},
+		{00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00},
+		{00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00},
+		{00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00},
+		{00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00},
+		{00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00},
+		{00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,11,9 ,9 ,9 ,9 ,9 ,10,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00},
+		{00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,12,13,13,13,14,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00},
+		{6,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,7},
+		{1,8,4,8,8,8,4,8,8,8,4,8,8,8,8,5,8,4,8,8,4,8,8,8,4,5,5,8,8,8,5,4,8,8,8,5,8,8,8,8,4,8,8,4,8,8,8,8,5,8,4,8,8,8,4,8,5,8,8,3},
+		{1,8,8,8,4,8,8,5,8,8,8,8,8,8,4,8,8,8,5,8,8,5,8,8,8,8,8,8,8,4,8,8,8,8,4,8,5,8,5,8,8,8,5,8,8,8,5,8,8,8,8,5,8,8,8,8,4,8,4,3},
+		{1,5,8,8,4,8,5,8,8,8,4,8,8,4,8,8,5,8,8,8,4,8,8,4,8,8,4,8,8,8,5,8,5,8,8,8,8,8,8,8,4,8,8,8,8,8,8,4,8,8,5,8,8,8,8,8,8,8,8,3},
+		{1,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,3},
+		{1,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,3},
+		{1,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,3},
+		{1,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,3},
+		{1,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,3}
 	};
     
     public Platforms() {
     	try {
-    		this.fullDirt = ImageIO.read(new File("res/tiles/fulldirt.png"));
-    		this.mossTile = ImageIO.read(new File("res/tiles/middlegrass.png"));
-    		this.dirtAtTop = ImageIO.read(new File("res/tiles/dirtattop.png"));
+    		this.dirtRock = ImageIO.read(new File("res/tiles/dirtrock.png"));
+    		this.middleGrass = ImageIO.read(new File("res/tiles/middlegrass.png"));
+    		this.leftEdgeDirt = ImageIO.read(new File("res/tiles/leftedgedirt.png"));
     		this.horizontalWood = ImageIO.read(new File("res/tiles/horizontalwood.png"));
-    		this.doorWood = ImageIO.read(new File("res/tiles/doorwood.png"));
+    		this.leftEdge = ImageIO.read(new File("res/tiles/leftedge.png"));
     	}
     	catch (IOException e){
     		
     	}
     	try {
-    		this.blankDirt = ImageIO.read(new File("res/tiles/blankdirt.png"));
-    		this.dirtAtTop2 = ImageIO.read(new File("res/tiles/dirtattop2.png"));
-    		this.crackedStone = ImageIO.read(new File("res/tiles/crackedstone.png"));
-    		this.quadBrick = ImageIO.read(new File("res/tiles/quadgreybrick.png"));
-    		this.middleDirt = ImageIO.read(new File("res/tiles/middledarkdirt.png"));
+    		this.leftPlatform = ImageIO.read(new File("res/tiles/leftplatform.png"));
+    		this.rightEdgeDirt = ImageIO.read(new File("res/tiles/rightedgedirt.png"));
+    		this.middlePlatform = ImageIO.read(new File("res/tiles/middleplatform.png"));
+    		this.rightPlatform = ImageIO.read(new File("res/tiles/rightplatform.png"));
+    		this.threeRockDirt = ImageIO.read(new File("res/tiles/threerockdirt.png"));
     	}
     	catch (IOException e) {
     		
     	}
     	try {
-    		this.defaultTile = ImageIO.read(new File("res/tiles/sky.png"));
+    		this.rightEdge = ImageIO.read(new File("res/tiles/rightedge.png"));
+    		this.blankDirt = ImageIO.read(new File("res/tiles/blankdirt.png"));
+    		this.rightWall = ImageIO.read(new File("res/tiles/rightwall.png"));
+    		this.leftWall = ImageIO.read(new File("res/tiles/leftwall.png"));
+    		this.middleBlank = ImageIO.read(new File("res/tiles/middleblank.png"));
     	}
     	catch (IOException e) {
     		
@@ -89,34 +97,49 @@ public class Platforms implements Background {
 			image = null;
 		}
 		else if (map[row][col] == 1) {
-			image = dirtAtTop;
+			image = leftEdgeDirt;
 		}
 		else if (map[row][col] == 2) {
-			image = mossTile;
+			image = middleGrass;
 		}
 		else if (map[row][col] == 3) {
-			image = dirtAtTop2;
+			image = rightEdgeDirt;
 		}
 		else if (map[row][col] == 4) {
-			image = fullDirt;
+			image = dirtRock;
 		}
 		else if (map[row][col] == 5) {
-			image = blankDirt;
+			image = threeRockDirt;
 		}
 		else if (map[row][col] == 6) {
-			image = doorWood;
+			image = leftEdge;
 		}
 		else if (map[row][col] == 7) {
-			image = defaultTile;
+			image = rightEdge;
 		}
 		else if (map[row][col] == 8) {
-			image = middleDirt;
+			image = blankDirt;
 		}
 		else if (map[row][col] == 9) {
-			image = crackedStone;
+			image = middlePlatform;
+		}
+		else if (map[row][col] == 10) {
+			image = rightPlatform;
+		}
+		else if (map[row][col] == 11) {
+			image = leftPlatform;
+		}
+		else if (map[row][col] == 12) {
+			image = leftWall;
+		}
+		else if (map[row][col] == 13) {
+			image = middleBlank;
+		}
+		else if (map[row][col] == 14) {
+			image = rightWall;
 		}
 		else {
-			image = defaultTile;
+			image = rightEdge;
 		}
 			
 		int x = (col * TILE_WIDTH);
@@ -163,7 +186,15 @@ public class Platforms implements Background {
 		ArrayList<DisplayableSprite> barriers = new ArrayList<DisplayableSprite>();
 		for (int col = 0; col < map[0].length; col++) {
 			for (int row = 0; row < map.length; row++) {
-				if (map[row][col] == 2) {
+				if (map[row][col] == 2 || 
+						map[row][col] == 6 || 
+						map[row][col] == 1 || 
+						map[row][col] == 7 || 
+						map[row][col] == 2 || 
+						map[row][col] == 3 || 
+						map[row][col] == 9 || 
+						map[row][col] == 10 || 
+						map[row][col] == 11) {
 					barriers.add(new BarrierSprite(col * TILE_WIDTH, row * TILE_HEIGHT, (col + 1) * TILE_WIDTH, (row + 1) * TILE_HEIGHT, false));
 				}
 			}
