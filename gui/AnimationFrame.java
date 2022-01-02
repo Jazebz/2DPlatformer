@@ -304,7 +304,7 @@ public class AnimationFrame extends JFrame {
 				DisplayableSprite sprite = activeSprite;
 				if (sprite.getVisible()) {
 					if (sprite.getImage() != null) {
-						g.drawImage(sprite.getImage(), translateX(sprite.getMinX()), translateY(sprite.getMinY()), scaleX(sprite.getWidth()), scaleY(sprite.getHeight()), null);
+						g.drawImage(sprite.getImage(), translateX(sprite.getMinX()) - 10, translateY(sprite.getMinY()) - 20, scaleX(sprite.getWidth()) + 20, scaleY(sprite.getHeight()) + 20, null);
 					}
 					else {
 						g.setColor(Color.BLUE);

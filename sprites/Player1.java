@@ -42,8 +42,8 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 	Image jumpingLeftDown = null;
 	private double centerX = 0.0;
 	private double centerY = 0.0;
-	private double height = 65.0;
-	private double width = 65.0;
+	private double height = 45.0;
+	private double width = 45.0;
 	private boolean dispose = false;
 	private double velocityX = 0;
 	private double velocityY = 0;
