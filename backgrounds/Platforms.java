@@ -26,6 +26,14 @@ public class Platforms implements Background {
     private Image rightWall;
     private Image leftWall;
     private Image middleBlank;
+    private Image bottomLeftCorner;
+    private Image bottomLeftCornerBehind;
+    private Image bottomRightCorner;
+    private Image bottonRightCornerBehind;
+    private Image topRightCorner;
+    private Image topRightCornerBehind;
+    private Image topLeftCorner;
+    private Image topLeftCornerBehind;
     private int maxCols = 0;
     private int maxRows = 0;
     
@@ -36,10 +44,10 @@ public class Platforms implements Background {
 		{00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00},
 		{00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00},
 		{00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00},
-		{00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00},
-		{00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00},
-		{00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,11,9 ,9 ,9 ,9 ,9 ,10,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00},
-		{00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,12,13,13,13,14,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00},
+		{00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,11,9 ,9 ,9 ,9 ,9 ,9 ,9 ,10,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00},
+		{00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,21,22,13,13,13,20,19,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00},
+		{00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,11,9 ,9 ,9 ,9 ,9 ,10,00,00,00,12,13,13,13,14,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00},
+		{00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,12,13,13,13,14,00,00,00,15,16,13,13,13,18,17,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00},
 		{6,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,7},
 		{1,8,4,8,8,4,5,8,8,8,4,8,8,5,8,5,8,4,8,8,4,8,8,8,4,5,5,8,8,8,5,4,8,8,8,5,8,8,8,8,4,8,8,4,8,8,8,8,5,8,4,8,8,8,4,8,5,8,8,3},
 		{1,8,8,8,4,8,8,5,8,8,8,8,4,8,4,8,8,8,5,8,8,5,8,8,8,8,8,8,8,4,8,8,8,8,4,8,5,8,5,8,8,8,5,8,8,8,5,8,8,8,8,5,8,8,8,8,4,8,4,3},
@@ -78,6 +86,29 @@ public class Platforms implements Background {
     		this.rightWall = ImageIO.read(new File("res/tiles/rightwall.png"));
     		this.leftWall = ImageIO.read(new File("res/tiles/leftwall.png"));
     		this.middleBlank = ImageIO.read(new File("res/tiles/middleblank.png"));
+    	}
+    	catch (IOException e) {
+    		
+    	}
+    	try {
+    		this.bottomLeftCorner = ImageIO.read(new File("res/tiles/bottomleftcorner.png"));
+    		this.bottomLeftCornerBehind = ImageIO.read(new File("res/tiles/bottomleftcornerbehind.png"));
+    		this.bottomRightCorner = ImageIO.read(new File("res/tiles/bottomrightcorner.png"));
+    	}
+    	catch (IOException e) {
+    		
+    	}
+    	try {
+    		this.bottonRightCornerBehind = ImageIO.read(new File("res/tiles/bottomrightcornerbehind.png"));
+    		this.topRightCorner = ImageIO.read(new File("res/tiles/toprightcorner.png"));
+    	}
+    	catch (IOException e) {
+    		
+    	}
+    	try {
+    		this.topRightCornerBehind = ImageIO.read(new File("res/tiles/toprightcornerbehind.png"));
+    		this.topLeftCorner = ImageIO.read(new File("res/tiles/topleftcorner.png"));
+    		this.topLeftCornerBehind = ImageIO.read(new File("res/tiles/topleftcornerbehind.png"));
     	}
     	catch (IOException e) {
     		
@@ -136,6 +167,39 @@ public class Platforms implements Background {
 			image = middleBlank;
 		}
 		else if (map[row][col] == 14) {
+			image = rightWall;
+		}
+		else if (map[row][col] == 15) {
+			image = bottomLeftCorner;
+		}
+		else if (map[row][col] == 16) {
+			image = bottomLeftCornerBehind;
+		}
+		else if (map[row][col] == 17) {
+			image = bottomRightCorner;
+		}
+		else if (map[row][col] == 18) {
+			image = bottonRightCornerBehind;
+		}
+		else if (map[row][col] == 19) {
+			image = topRightCorner;
+		}
+		else if (map[row][col] == 20) {
+			image = topRightCornerBehind;
+		}
+		else if (map[row][col] == 21) {
+			image = topLeftCorner;
+		}
+		else if (map[row][col] == 22) {
+			image = topLeftCornerBehind;
+		}
+		else if (map[row][col] == 23) {
+			image = rightWall;
+		}
+		else if (map[row][col] == 24) {
+			image = rightWall;
+		}
+		else if (map[row][col] == 25) {
 			image = rightWall;
 		}
 		else {
