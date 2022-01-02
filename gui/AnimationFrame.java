@@ -342,7 +342,7 @@ public class AnimationFrame extends JFrame {
 			int row = background.getRow((int)yTopLeft);
 			int col = background.getCol((int)xTopLeft);
 			Tile tile = null;
-
+			if(background == platforms) {
 			boolean rowDrawn = false;
 			boolean screenDrawn = false;
 			while (screenDrawn == false) {
@@ -379,6 +379,30 @@ public class AnimationFrame extends JFrame {
 					row++;
 					rowDrawn = false;
 				}
+			}
+			}
+			else if(background == skyBackground) {
+				boolean rowDrawn = false;
+				while (rowDrawn == false) {
+					tile = background.getTile(col, row);
+					if (tile.getWidth() <= 0 || tile.getHeight() <= 0) {
+						//no increase in width; will cause an infinite loop, so consider this screen to be done
+						g.setColor(Color.GRAY);
+						g.fillRect(0,0, SCREEN_WIDTH, SCREEN_HEIGHT);					
+						rowDrawn = true;			
+					}
+					else {
+						g.drawImage(tile.getImage(), translateX(tile.getMinX()), 0, tile.getWidth(), tile.getHeight(), null);
+					}					
+					//does the RHE of this tile extend past the RHE of the visible area?
+					if (translateX(tile.getMinX() + tile.getWidth()) > SCREEN_WIDTH || tile.isOutOfBounds()) {
+						rowDrawn = true;
+					}
+					else {
+						col++;
+					}
+				}
+				//g.drawImage(background.getTile(1,1).getImage(),  translateX(tile.getMinX()), 50, 384*3, 240*3, null );
 			}
 		}				
 	}

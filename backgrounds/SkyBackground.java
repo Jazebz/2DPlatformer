@@ -13,8 +13,8 @@ public class SkyBackground implements Background{
 	 public SkyBackground() {
 	    	try {
 	    		this.skyBackground = ImageIO.read(new File("res/back.png"));
-	    		backgroundWidth = skyBackground.getWidth(null) * 3;
-	    		backgroundHeight = skyBackground.getHeight(null) * 3;
+	    		backgroundWidth = (int)(skyBackground.getWidth(null) * 3.5);
+	    		backgroundHeight = (int)(skyBackground.getHeight(null) * 3.5);
 	    		
 	    	}
 	    	catch (IOException e) {
@@ -66,6 +66,12 @@ public class SkyBackground implements Background{
 		else {
 			return 0;
 		}
+	}
+	public int getHeight() {
+		return backgroundHeight;
+	}
+	public int getWidth() {
+		return backgroundWidth;
 	}
 
 }
