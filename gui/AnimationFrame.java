@@ -169,7 +169,7 @@ public class AnimationFrame extends JFrame {
 			skyBackground = universe.getBackground();
 			greenBackground = universe.getBackgroundMiddle();
 			centreOnPlayer = universe.centerOnPlayer();
-			this.scale = universe.getScale();
+//			this.scale = universe.getScale();
 			this.xCenter = universe.getXCenter();
 			this.yCenter = universe.getYCenter();
 
@@ -206,7 +206,7 @@ public class AnimationFrame extends JFrame {
 				updateControls();
 
 				//REFRESH
-				this.scale = universe.getScale();
+//				this.scale = universe.getScale();
 				this.repaint();
 			}
 
@@ -260,11 +260,11 @@ public class AnimationFrame extends JFrame {
 		}
 		if (keyboard.keyDown(112)) {
 			scale *= 1.01;
-			System.out.println("in");
+			System.out.println(scale);
 		}
 		if (keyboard.keyDown(113)) {
 			scale /= 1.01;
-			System.out.println("out");
+			System.out.println(scale);
 		}
 		if (keyboard.keyDown(65)) {
 			xCenter -= 1;
@@ -314,7 +314,7 @@ public class AnimationFrame extends JFrame {
 				DisplayableSprite sprite = activeSprite;
 				if (sprite.getVisible()) {
 					if (sprite.getImage() != null) {
-						g.drawImage(sprite.getImage(), translateX(sprite.getMinX()) - 15, translateY(sprite.getMinY()) - 30, scaleX(sprite.getWidth()) + 30, scaleY(sprite.getHeight()) + 30, null);
+						g.drawImage(sprite.getImage(), translateX(sprite.getMinX()) - 20, translateY(sprite.getMinY()) - 40, scaleX(sprite.getWidth()) + 40, scaleY(sprite.getHeight()) + 40, null);
 					}
 					else {
 						g.setColor(Color.BLUE);
@@ -345,14 +345,14 @@ public class AnimationFrame extends JFrame {
 			if ((g == null) || (background == null)) {
 				return;
 			}
+			if(background == platforms) {
 				//what tile covers the top-left corner?
 				double xTopLeft =  (xCenter - (xpCenter / scale));
 				double yTopLeft =  (yCenter - (ypCenter / scale));
-			
-			int row = background.getRow((int)yTopLeft);
-			int col = background.getCol((int)xTopLeft);
-			Tile tile = null;
-			if(background == platforms) {
+				
+				int row = background.getRow((int)yTopLeft);
+				int col = background.getCol((int)xTopLeft);
+				Tile tile = null;
 			boolean rowDrawn = false;
 			boolean screenDrawn = false;
 			while (screenDrawn == false) {
@@ -392,6 +392,13 @@ public class AnimationFrame extends JFrame {
 			}
 			}
 			else if(background == skyBackground) {
+				//what tile covers the top-left corner?
+				double xTopLeft =  (xCenter * 0.25 - (xpCenter / scale));
+				double yTopLeft =  (yCenter - (ypCenter / scale));
+				
+				int row = background.getRow((int)yTopLeft);
+				int col = background.getCol((int)xTopLeft);
+				Tile tile = null;
 				boolean rowDrawn = false;
 				while (rowDrawn == false) {
 					tile = background.getTile(col, row);
@@ -402,7 +409,7 @@ public class AnimationFrame extends JFrame {
 						rowDrawn = true;			
 					}
 					else {
-						g.drawImage(tile.getImage(), translateX(tile.getMinX()), 0, tile.getWidth(), tile.getHeight(), null);
+						g.drawImage(tile.getImage(), (int)(translateX(tile.getMinX()) * 0.25), 0, tile.getWidth(), tile.getHeight(), null);
 					}					
 					//does the RHE of this tile extend past the RHE of the visible area?
 					if (translateX(tile.getMinX() + tile.getWidth()) > SCREEN_WIDTH || tile.isOutOfBounds()) {
@@ -414,6 +421,14 @@ public class AnimationFrame extends JFrame {
 				}
 			}
 			else if(background == greenBackground) {
+
+				//what tile covers the top-left corner?
+				double xTopLeft =  (xCenter - (xpCenter / scale));
+				double yTopLeft =  (yCenter - (ypCenter / scale));
+				
+				int row = background.getRow((int)yTopLeft);
+				int col = background.getCol((int)xTopLeft);
+				Tile tile = null;
 				boolean rowDrawn = false;
 				while (rowDrawn == false) {
 					tile = background.getTile(col, row);
