@@ -113,4 +113,18 @@ public class ExitSprite implements DisplayableSprite {
 			
 	}
 
+
+	@Override
+	public boolean getRespawn() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public void setRespawn(boolean b) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

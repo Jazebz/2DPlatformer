@@ -20,6 +20,7 @@ public interface Universe {
 	
 	public Background getPlatforms();
 	public Background getBackground();
+	public Background getBackgroundMiddle();
 	public DisplayableSprite getPlayer1();
 	public boolean centerOnPlayer();
 

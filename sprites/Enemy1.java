@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprite {
+public class Enemy1 implements DisplayableSprite, MovableSprite, CollidingSprite {
 	private double ACCCELERATION_Y = 1000; 	//PIXELS PER SECOND PER SECOND
 	private double MAX_VELOCITY_X = 300;	//PIXELS PER SECOND
 	private double maxVelocity = 400;
@@ -60,10 +60,10 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 	private boolean respawn = false;
 	
 	
-	public Player1() {
+	public Enemy1() {
 		this(0.0, 0.0);
 	}
-	public Player1(double centerX, double centerY) {
+	public Enemy1(double centerX, double centerY) {
 		this.centerX = centerX;
 		this.centerY = centerY;
 		//Assigns images to variables
@@ -389,7 +389,7 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 				}
 				else {
 					currentFrame = 0;
-					return walkingLeftOne;
+					return walkingLeftOne; 
 				}
 			}
 			else {
@@ -520,7 +520,7 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 				this.velocityX = 0;
 			}
 		if (onGround) {
-
+			
 			if (keyboard.keyDown(32) || keyboard.keyDown(38)) {
 				isJumping = true;
 				this.velocityY -= INITIAL_JUMP_VELOCITY;

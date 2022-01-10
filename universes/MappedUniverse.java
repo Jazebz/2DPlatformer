@@ -6,21 +6,26 @@ public class MappedUniverse implements Universe {
 	private boolean complete = false;	
 	private Background platforms = null;	
 	private Background background = null;
+	private Background middleBackground = null;
 	private DisplayableSprite player1 = null;
+	private DisplayableSprite enemy1 = null;
 	private ArrayList<DisplayableSprite> sprites = new ArrayList<DisplayableSprite>();
-	private double xCenter = 0;
+	private double xCenter = 500;
 	private double yCenter = 0;
 
 	public MappedUniverse () {
 
 		platforms = new Platforms();
 		background = new SkyBackground();
+		middleBackground = new GreenBackground();
 		
 		ArrayList<DisplayableSprite> barriers = ((Platforms)platforms).getBarriers();
 		
-		player1 = new Player1(Platforms.TILE_HEIGHT * 2, Platforms.TILE_WIDTH * 2 + 280);
+		player1 = new Player1(Platforms.TILE_HEIGHT * 2 + 500, Platforms.TILE_WIDTH * 2 + 350);
+		enemy1 = new Enemy1(Platforms.TILE_HEIGHT * 2 + 500, Platforms.TILE_WIDTH * 2 + 350);
 		
 		sprites.add(player1);
+		sprites.add(enemy1);
 		sprites.addAll(barriers);
 
 	}
@@ -86,6 +91,11 @@ public class MappedUniverse implements Universe {
 
 	public String toString() {
 		return "MappedUniverse";
+	}
+
+	@Override
+	public Background getBackgroundMiddle() {
+		return middleBackground;
 	}	
 
 }

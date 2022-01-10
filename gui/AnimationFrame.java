@@ -50,6 +50,7 @@ public class AnimationFrame extends JFrame {
 	private ArrayList<DisplayableSprite> sprites = null;
 	private Background platforms = null;
 	private Background skyBackground = null;
+	private Background greenBackground = null;
 	boolean centreOnPlayer = false;
 	int universeLevel = 0;
 	
@@ -166,6 +167,7 @@ public class AnimationFrame extends JFrame {
 			player1 = universe.getPlayer1();
 			platforms = universe.getPlatforms();
 			skyBackground = universe.getBackground();
+			greenBackground = universe.getBackgroundMiddle();
 			centreOnPlayer = universe.centerOnPlayer();
 			this.scale = universe.getScale();
 			this.xCenter = universe.getXCenter();
@@ -296,15 +298,23 @@ public class AnimationFrame extends JFrame {
 				}
 	   
 			}
+			if (player1 != null && centreOnPlayer) {
+				if(((DisplayableSprite) player1).getRespawn() == true) {
+					xCenter = 500;
+					yCenter = 350;
+					player1.setRespawn(false);
+				}
+			}
 			
 			paintBackground(g, skyBackground);
+			paintBackground(g, greenBackground);
 			paintBackground(g, platforms);
 
 			for (DisplayableSprite activeSprite : sprites) {
 				DisplayableSprite sprite = activeSprite;
 				if (sprite.getVisible()) {
 					if (sprite.getImage() != null) {
-						g.drawImage(sprite.getImage(), translateX(sprite.getMinX()) - 10, translateY(sprite.getMinY()) - 20, scaleX(sprite.getWidth()) + 20, scaleY(sprite.getHeight()) + 20, null);
+						g.drawImage(sprite.getImage(), translateX(sprite.getMinX()) - 15, translateY(sprite.getMinY()) - 30, scaleX(sprite.getWidth()) + 30, scaleY(sprite.getHeight()) + 30, null);
 					}
 					else {
 						g.setColor(Color.BLUE);
@@ -402,7 +412,28 @@ public class AnimationFrame extends JFrame {
 						col++;
 					}
 				}
-				//g.drawImage(background.getTile(1,1).getImage(),  translateX(tile.getMinX()), 50, 384*3, 240*3, null );
+			}
+			else if(background == greenBackground) {
+				boolean rowDrawn = false;
+				while (rowDrawn == false) {
+					tile = background.getTile(col, row);
+					if (tile.getWidth() <= 0 || tile.getHeight() <= 0) {
+						//no increase in width; will cause an infinite loop, so consider this screen to be done
+						g.setColor(Color.GRAY);
+						g.fillRect(0,0, SCREEN_WIDTH, SCREEN_HEIGHT);					
+						rowDrawn = true;			
+					}
+					else {
+						g.drawImage(tile.getImage(), translateX(tile.getMinX()), 275, tile.getWidth(), tile.getHeight(), null);
+					}					
+					//does the RHE of this tile extend past the RHE of the visible area?
+					if (translateX(tile.getMinX() + tile.getWidth()) > SCREEN_WIDTH || tile.isOutOfBounds()) {
+						rowDrawn = true;
+					}
+					else {
+						col++;
+					}
+				}
 			}
 		}				
 	}
