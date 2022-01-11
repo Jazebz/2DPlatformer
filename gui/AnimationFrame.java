@@ -393,7 +393,7 @@ public class AnimationFrame extends JFrame {
 			}
 			else if(background == skyBackground) {
 				//what tile covers the top-left corner?
-				double xTopLeft =  (xCenter - (xpCenter / scale)) * 0.5;
+				double xTopLeft =  (xCenter * 0.5 - (xpCenter / scale));
 				double yTopLeft =  (yCenter - (ypCenter / scale));
 				
 				int row = background.getRow((int)yTopLeft);
@@ -401,7 +401,7 @@ public class AnimationFrame extends JFrame {
 				Tile tile = null;
 				boolean rowDrawn = false;
 				tile = background.getTile(col, row);
-				double currentX = xTopLeft;
+				double currentX = translateX(tile.getMinX()) * 0.5;
 				while (rowDrawn == false) {
 					tile = background.getTile(col, row);
 					if (tile.getWidth() <= 0 || tile.getHeight() <= 0) {
@@ -426,13 +426,15 @@ public class AnimationFrame extends JFrame {
 			else if(background == greenBackground) {
 
 				//what tile covers the top-left corner?
-				double xTopLeft =  (xCenter - (xpCenter / scale));
+				double xTopLeft =  (xCenter - (xpCenter / scale) * 0.75);
 				double yTopLeft =  (yCenter - (ypCenter / scale));
 				
 				int row = background.getRow((int)yTopLeft);
 				int col = background.getCol((int)xTopLeft);
 				Tile tile = null;
 				boolean rowDrawn = false;
+				tile = background.getTile(col, row);
+				double currentX = translateX(tile.getMinX()) * 0.75;
 				while (rowDrawn == false) {
 					tile = background.getTile(col, row);
 					if (tile.getWidth() <= 0 || tile.getHeight() <= 0) {
@@ -442,7 +444,8 @@ public class AnimationFrame extends JFrame {
 						rowDrawn = true;			
 					}
 					else {
-						g.drawImage(tile.getImage(), translateX(tile.getMinX()), 275, tile.getWidth(), tile.getHeight(), null);
+						g.drawImage(tile.getImage(), (int)currentX, 275, tile.getWidth(), tile.getHeight(), null);
+						currentX += tile.getWidth();
 					}					
 					//does the RHE of this tile extend past the RHE of the visible area?
 					if (translateX(tile.getMinX() + tile.getWidth()) > SCREEN_WIDTH || tile.isOutOfBounds()) {
