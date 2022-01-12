@@ -393,7 +393,7 @@ public class AnimationFrame extends JFrame {
 			}
 			else if(background == skyBackground) {
 				//what tile covers the top-left corner?
-				double xTopLeft =  (xCenter * 0.5- (xpCenter / scale));
+				double xTopLeft =  (xCenter * 0.5 - (xpCenter / scale));
 				double yTopLeft =  (yCenter - (ypCenter / scale));
 				
 				int row = background.getRow((int)yTopLeft);

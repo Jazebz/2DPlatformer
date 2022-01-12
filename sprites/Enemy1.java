@@ -16,14 +16,6 @@ public class Enemy1 implements DisplayableSprite, MovableSprite, CollidingSprite
 	TwoDimensionBounce bounce;
 	
 	private static final int VELOCITY = 200;
-	Image idleRightOne = null;
-	Image idleRightTwo = null;
-	Image idleRightThree = null;
-	Image idleRightFour = null;
-	Image idleLeftOne = null;
-	Image idleLeftTwo = null;
-	Image idleLeftThree = null;
-	Image idleLeftFour = null;
 	Image walkingRightOne = null;
 	Image walkingRightTwo = null;
 	Image walkingRightThree = null;
@@ -36,10 +28,6 @@ public class Enemy1 implements DisplayableSprite, MovableSprite, CollidingSprite
 	Image walkingLeftFour = null;
 	Image walkingLeftFive = null;
 	Image walkingLeftSix = null;
-	Image jumpingRightUp = null;
-	Image jumpingRightDown = null;
-	Image jumpingLeftUp = null;
-	Image jumpingLeftDown = null;
 	private double centerX = 0.0;
 	private double centerY = 0.0;
 	private double height = 49.0;
@@ -58,6 +46,7 @@ public class Enemy1 implements DisplayableSprite, MovableSprite, CollidingSprite
 	private boolean idle = true;
 	private double dashCoolDown = 0;
 	private boolean respawn = false;
+	private boolean initialize = true;
 	
 	
 	public Enemy1() {
@@ -72,73 +61,9 @@ public class Enemy1 implements DisplayableSprite, MovableSprite, CollidingSprite
 		collisionDetection.setBounceFactorY(0);
 		bounce = new TwoDimensionBounce();
 		
-		if (idleRightOne == null) {
-			try {
-				idleRightOne = ImageIO.read(new File("res/sprites/Fox/Idleright/Idleright1.png"));
-			}
-			catch (IOException e) {
-				System.out.println(e.toString());
-			}		
-		}
-		if (idleRightTwo == null) {
-			try {
-				idleRightTwo = ImageIO.read(new File("res/sprites/Fox/Idleright/Idleright2.png"));
-			}
-			catch (IOException e) {
-				System.out.println(e.toString());
-			}		
-		}
-		if (idleRightThree == null) {
-			try {
-				idleRightThree = ImageIO.read(new File("res/sprites/Fox/Idleright/Idleright3.png"));
-			}
-			catch (IOException e) {
-				System.out.println(e.toString());
-			}		
-		}
-		if (idleRightFour == null) {
-			try {
-				idleRightFour = ImageIO.read(new File("res/sprites/Fox/Idleright/Idleright4.png"));
-			}
-			catch (IOException e) {
-				System.out.println(e.toString());
-			}		
-		}
-		if (idleLeftOne == null) {
-			try {
-				idleLeftOne = ImageIO.read(new File("res/sprites/Fox/Idleleft/Idleleft1.png"));
-			}
-			catch (IOException e) {
-				System.out.println(e.toString());
-			}		
-		}
-		if (idleLeftTwo == null) {
-			try {
-				idleLeftTwo = ImageIO.read(new File("res/sprites/Fox/Idleleft/Idleleft2.png"));
-			}
-			catch (IOException e) {
-				System.out.println(e.toString());
-			}		
-		}
-		if (idleLeftThree == null) {
-			try {
-				idleLeftThree = ImageIO.read(new File("res/sprites/Fox/Idleleft/Idleleft3.png"));
-			}
-			catch (IOException e) {
-				System.out.println(e.toString());
-			}		
-		}
-		if (idleLeftFour == null) {
-			try {
-				idleLeftFour = ImageIO.read(new File("res/sprites/Fox/Idleleft/Idleleft4.png"));
-			}
-			catch (IOException e) {
-				System.out.println(e.toString());
-			}		
-		}
 		if (walkingRightOne == null) {
 			try {
-				walkingRightOne = ImageIO.read(new File("res/sprites/Fox/Walkingright/Walkingright1.png"));
+				walkingRightOne = ImageIO.read(new File("res/sprites/Enemyopossum/Walkingright1.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -146,7 +71,7 @@ public class Enemy1 implements DisplayableSprite, MovableSprite, CollidingSprite
 		}
 		if (walkingRightTwo == null) {
 			try {
-				walkingRightTwo = ImageIO.read(new File("res/sprites/Fox/Walkingright/Walkingright2.png"));
+				walkingRightTwo = ImageIO.read(new File("res/sprites/Enemyopossum/Walkingright2.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -154,7 +79,7 @@ public class Enemy1 implements DisplayableSprite, MovableSprite, CollidingSprite
 		}
 		if (walkingRightThree == null) {
 			try {
-				walkingRightThree = ImageIO.read(new File("res/sprites/Fox/Walkingright/Walkingright3.png"));
+				walkingRightThree = ImageIO.read(new File("res/sprites/Enemyopossum/Walkingright3.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -162,7 +87,7 @@ public class Enemy1 implements DisplayableSprite, MovableSprite, CollidingSprite
 		}
 		if (walkingRightFour == null) {
 			try {
-				walkingRightFour = ImageIO.read(new File("res/sprites/Fox/Walkingright/Walkingright4.png"));
+				walkingRightFour = ImageIO.read(new File("res/sprites/Enemyopossum/Walkingright4.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -170,7 +95,7 @@ public class Enemy1 implements DisplayableSprite, MovableSprite, CollidingSprite
 		}
 		if (walkingRightFive == null) {
 			try {
-				walkingRightFive = ImageIO.read(new File("res/sprites/Fox/Walkingright/Walkingright5.png"));
+				walkingRightFive = ImageIO.read(new File("res/sprites/Enemyopossum/Walkingright5.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -178,7 +103,7 @@ public class Enemy1 implements DisplayableSprite, MovableSprite, CollidingSprite
 		}
 		if (walkingRightSix == null) {
 			try {
-				walkingRightSix = ImageIO.read(new File("res/sprites/Fox/Walkingright/Walkingright6.png"));
+				walkingRightSix = ImageIO.read(new File("res/sprites/Enemyopossum/Walkingright6.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -186,7 +111,7 @@ public class Enemy1 implements DisplayableSprite, MovableSprite, CollidingSprite
 		}
 		if (walkingLeftOne == null) {
 			try {
-				walkingLeftOne = ImageIO.read(new File("res/sprites/Fox/Walkingleft/Walkingleft1.png"));
+				walkingLeftOne = ImageIO.read(new File("res/sprites/Enemyopossum/Walkingleft1.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -194,7 +119,7 @@ public class Enemy1 implements DisplayableSprite, MovableSprite, CollidingSprite
 		}
 		if (walkingLeftTwo == null) {
 			try {
-				walkingLeftTwo = ImageIO.read(new File("res/sprites/Fox/Walkingleft/Walkingleft2.png"));
+				walkingLeftTwo = ImageIO.read(new File("res/sprites/Enemyopossum/Walkingleft2.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -202,7 +127,7 @@ public class Enemy1 implements DisplayableSprite, MovableSprite, CollidingSprite
 		}
 		if (walkingLeftThree == null) {
 			try {
-				walkingLeftThree = ImageIO.read(new File("res/sprites/Fox/Walkingleft/Walkingleft3.png"));
+				walkingLeftThree = ImageIO.read(new File("res/sprites/Enemyopossum/Walkingleft3.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -210,7 +135,7 @@ public class Enemy1 implements DisplayableSprite, MovableSprite, CollidingSprite
 		}
 		if (walkingLeftFour == null) {
 			try {
-				walkingLeftFour = ImageIO.read(new File("res/sprites/Fox/Walkingleft/Walkingleft4.png"));
+				walkingLeftFour = ImageIO.read(new File("res/sprites/Enemyopossum/Walkingleft4.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -218,7 +143,7 @@ public class Enemy1 implements DisplayableSprite, MovableSprite, CollidingSprite
 		}
 		if (walkingLeftFive == null) {
 			try {
-				walkingLeftFive = ImageIO.read(new File("res/sprites/Fox/Walkingleft/Walkingleft5.png"));
+				walkingLeftFive = ImageIO.read(new File("res/sprites/Enemyopossum/Walkingleft5.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -226,39 +151,7 @@ public class Enemy1 implements DisplayableSprite, MovableSprite, CollidingSprite
 		}
 		if (walkingLeftSix == null) {
 			try {
-				walkingLeftSix = ImageIO.read(new File("res/sprites/Fox/Walkingleft/Walkingleft6.png"));
-			}
-			catch (IOException e) {
-				System.out.println(e.toString());
-			}		
-		}
-		if (jumpingRightUp == null) {
-			try {
-				jumpingRightUp = ImageIO.read(new File("res/sprites/Fox/Jumpingright/Up.png"));
-			}
-			catch (IOException e) {
-				System.out.println(e.toString());
-			}		
-		}
-		if (jumpingRightDown == null) {
-			try {
-				jumpingRightDown = ImageIO.read(new File("res/sprites/Fox/Jumpingright/Down.png"));
-			}
-			catch (IOException e) {
-				System.out.println(e.toString());
-			}		
-		}
-		if (jumpingLeftUp == null) {
-			try {
-				jumpingLeftUp = ImageIO.read(new File("res/sprites/Fox/Jumpingleft/Up.png"));
-			}
-			catch (IOException e) {
-				System.out.println(e.toString());
-			}		
-		}
-		if (jumpingLeftDown == null) {
-			try {
-				jumpingLeftDown = ImageIO.read(new File("res/sprites/Fox/Jumpingleft/Down.png"));
+				walkingLeftSix = ImageIO.read(new File("res/sprites/Enemyopossum/Walkingleft6.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -308,31 +201,6 @@ public class Enemy1 implements DisplayableSprite, MovableSprite, CollidingSprite
 			}
 			if(velocityX < 0) {
 				currentAnimationX = -1;
-			}
-			//Up
-			if(velocityY < 0) {
-				if(currentAnimationX == 1) {
-					return jumpingRightUp;
-				}
-				else if(currentAnimationX == -1){
-					return jumpingLeftUp;
-				}
-				else {
-					return null;
-				}
-				
-			}
-			//Down
-			else if(velocityY > 0) {
-				if(currentAnimationX == 1) {
-					return jumpingRightDown;
-				}
-				else if(currentAnimationX == -1){
-					return jumpingLeftDown;
-				}
-				else {
-					return null;
-				}
 			}
 			//Right
 			else if(velocityX > 0) {
@@ -397,48 +265,10 @@ public class Enemy1 implements DisplayableSprite, MovableSprite, CollidingSprite
 			}
 		}
 		else {
-			if(currentAnimationX == -1) {
-				idle = true;
-				if((int)currentFrame == 0) {
-					return idleLeftOne;
-				}
-				else if ((int)currentFrame == 1) {
-					return idleLeftTwo;
-				}
-				else if((int)currentFrame == 2) {
-					return idleLeftThree;
-				}
-				else if((int)currentFrame == 3){
-					return idleLeftFour;
-				}
-				else {
-					currentFrame = 0;
-					return idleLeftOne;
-				}
-			}
-			else if(currentAnimationX == 1){
-				idle = true;
-				if((int)currentFrame == 0) {
-					return idleRightOne;
-				}
-				else if ((int)currentFrame == 1) {
-					return idleRightTwo;
-				}
-				else if((int)currentFrame == 2) {
-					return idleRightThree;
-				}
-				else if((int)currentFrame == 3){
-					return idleRightFour;
-				}
-				else {
-					currentFrame = 0;
-					return idleRightOne;
-				}
-			}
-			else {
-				return null;
-			}
+			return null;
 		}
+		return walkingLeftFive;
+		
 	}
 
 	@Override
@@ -501,37 +331,19 @@ public class Enemy1 implements DisplayableSprite, MovableSprite, CollidingSprite
 			respawn = true;
 		}
 		boolean onGround = isOnGround(universe);
-			if(keyboard.keyDown(16)) {
-				speed = 1.5;
-			}
-			else {
-				speed = 1;
+			if(initialize = true) {
+				velocityX = MAX_VELOCITY_X * speed;	
+				initialize = false;
 			}
 			// RIGHT
-			if (keyboard.keyDown(39)) {
-				velocityX = MAX_VELOCITY_X * speed;
-						
+			if (centerX < 600) {
+				velocityX = MAX_VELOCITY_X * speed;	
 			}
 			// LEFT
-			else if (keyboard.keyDown(37)) {
-					velocityX = - MAX_VELOCITY_X * speed;
-			}
-			else {
-				this.velocityX = 0;
-			}
-		if (onGround) {
-			
-			if (keyboard.keyDown(32) || keyboard.keyDown(38)) {
-				isJumping = true;
-				this.velocityY -= INITIAL_JUMP_VELOCITY;
-				onGround = false;
+			if (centerX > 1500) {
+				velocityX = - MAX_VELOCITY_X * speed;
 			}
 			
-		}
-		else {
-			
-		}
-		
 		collisionDetection.calculate2DBounce(bounce, this, universe.getSprites(), velocityX, velocityY, actual_delta_time);
 		this.centerX = bounce.newX + (width / 2);
 		this.centerY = bounce.newY + (width / 2);
