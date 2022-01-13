@@ -303,12 +303,6 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 			currentFrame += frameRate;
 		}
 		if((velocityX != 0) || (velocityY != 0)) {
-			if(velocityX > 0) {
-				currentAnimationX = 1;
-			}
-			if(velocityX < 0) {
-				currentAnimationX = -1;
-			}
 			//Up
 			if(velocityY < 0) {
 				if(currentAnimationX == 1) {
@@ -335,7 +329,7 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 				}
 			}
 			//Right
-			else if(velocityX > 0) {
+			else if(currentAnimationX == 1) {
 				if(currentAnimationX != 1 || idle == true) {
 					currentFrame = 0;
 				}
@@ -364,7 +358,7 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 				}
 			}
 			//Left
-			else if(velocityX < 0){
+			else if(currentAnimationX == -1){
 				if(currentAnimationX != -1 || idle == true) {
 					currentFrame = 0;
 				}
@@ -510,11 +504,12 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 			// RIGHT
 			if (keyboard.keyDown(39)) {
 				velocityX = MAX_VELOCITY_X * speed;
-						
+				currentAnimationX = 1;
 			}
 			// LEFT
 			else if (keyboard.keyDown(37)) {
-					velocityX = - MAX_VELOCITY_X * speed;
+				velocityX = - MAX_VELOCITY_X * speed;
+				currentAnimationX = -1;	
 			}
 			else {
 				this.velocityX = 0;

@@ -8,7 +8,6 @@ public class MappedUniverse implements Universe {
 	private Background background = null;
 	private Background middleBackground = null;
 	private DisplayableSprite player1 = null;
-	private DisplayableSprite enemy1 = null;
 	private ArrayList<DisplayableSprite> sprites = new ArrayList<DisplayableSprite>();
 	private double xCenter = 500;
 	private double yCenter = 0;
@@ -22,10 +21,11 @@ public class MappedUniverse implements Universe {
 		ArrayList<DisplayableSprite> barriers = ((Platforms)platforms).getBarriers();
 		
 		player1 = new Player1(Platforms.TILE_HEIGHT * 2 + 500, Platforms.TILE_WIDTH * 2 + 350);
-		enemy1 = new Enemy1(Platforms.TILE_HEIGHT * 2 + 500, Platforms.TILE_WIDTH * 2 + 350);
 		
 		sprites.add(player1);
-		sprites.add(enemy1);
+		sprites.add(new Enemy1(1000, Platforms.TILE_WIDTH * 2 + 350, 750, 1250));
+		sprites.add(new Enemy1(2000, Platforms.TILE_WIDTH * 2 + 350, 1750, 2250));
+		sprites.add(new Enemy1(3000, Platforms.TILE_WIDTH * 2 + 350, 2750, 3250));
 		sprites.addAll(barriers);
 
 	}

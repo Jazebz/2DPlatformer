@@ -6,7 +6,7 @@ import javax.imageio.ImageIO;
 
 public class Enemy1 implements DisplayableSprite, MovableSprite, CollidingSprite {
 	private double ACCCELERATION_Y = 1000; 	//PIXELS PER SECOND PER SECOND
-	private double MAX_VELOCITY_X = 300;	//PIXELS PER SECOND
+	private double MAX_VELOCITY_X = 200;	//PIXELS PER SECOND
 	private double maxVelocity = 400;
 
 	private boolean isJumping = false;
@@ -33,7 +33,7 @@ public class Enemy1 implements DisplayableSprite, MovableSprite, CollidingSprite
 	private double height = 49.0;
 	private double width = 49.0;
 	private boolean dispose = false;
-	private double velocityX = 0;
+	private double velocityX = MAX_VELOCITY_X;
 	private double velocityY = 0;
 	private boolean message = false;
 	private boolean isAtExit = false;
@@ -41,20 +41,23 @@ public class Enemy1 implements DisplayableSprite, MovableSprite, CollidingSprite
 	private double currentFrame;
 	private double frameRate = 0.075;
 	private double speed = 1;
-	private boolean dash = false;
 	private int currentAnimationX = 1;
-	private boolean idle = true;
-	private double dashCoolDown = 0;
-	private boolean respawn = false;
-	private boolean initialize = true;
+	private boolean respawn = true;
+	private double rightMostX = 0;
+	private double leftMostX = 0;
 	
 	
 	public Enemy1() {
 		this(0.0, 0.0);
 	}
 	public Enemy1(double centerX, double centerY) {
+		this(centerX, centerY, 0, 0);
+	}
+	public Enemy1(double centerX, double centerY, double leftMostX, double rightMostX) {
 		this.centerX = centerX;
 		this.centerY = centerY;
+		this.rightMostX = rightMostX;
+		this.leftMostX = leftMostX;
 		//Assigns images to variables
 		collisionDetection = new CollisionDetection();
 		collisionDetection.setBounceFactorX(0.5);
@@ -189,25 +192,13 @@ public class Enemy1 implements DisplayableSprite, MovableSprite, CollidingSprite
 	@Override
 	public Image getImage() {
 		//Sprite Animation (Changes Image)
-		if(idle == false) {
-			currentFrame += frameRate * speed;
-		}
-		else {
-			currentFrame += frameRate;
-		}
+		currentFrame += frameRate;
 		if((velocityX != 0) || (velocityY != 0)) {
-			if(velocityX > 0) {
-				currentAnimationX = 1;
-			}
-			if(velocityX < 0) {
-				currentAnimationX = -1;
-			}
 			//Right
-			else if(velocityX > 0) {
-				if(currentAnimationX != 1 || idle == true) {
+			if(currentAnimationX == 1) {
+				if(currentAnimationX != 1) {
 					currentFrame = 0;
 				}
-				idle = false;
 				if((int)currentFrame == 0) {
 					return walkingRightOne;
 				}
@@ -232,11 +223,10 @@ public class Enemy1 implements DisplayableSprite, MovableSprite, CollidingSprite
 				}
 			}
 			//Left
-			else if(velocityX < 0){
-				if(currentAnimationX != -1 || idle == true) {
+			else if(currentAnimationX == -1){
+				if(currentAnimationX != -1) {
 					currentFrame = 0;
 				}
-				idle = false;
 				if((int)currentFrame == 0) {
 					return walkingLeftOne;
 				}
@@ -267,7 +257,6 @@ public class Enemy1 implements DisplayableSprite, MovableSprite, CollidingSprite
 		else {
 			return null;
 		}
-		return walkingLeftFive;
 		
 	}
 
@@ -315,6 +304,9 @@ public class Enemy1 implements DisplayableSprite, MovableSprite, CollidingSprite
 	public double getCenterY() {
 		return centerY;
 	}
+	public void setDispose(boolean dispose) {
+		this.dispose = dispose;
+	}
 
 	@Override
 	public boolean getDispose() {
@@ -323,25 +315,20 @@ public class Enemy1 implements DisplayableSprite, MovableSprite, CollidingSprite
 
 	@Override
 	public void update(Universe universe, KeyboardInput keyboard, long actual_delta_time) {
-		//Respawn
-		if(this.centerY > 2500) {
-			this.centerY = 550;
-			this.centerX = 500;
-			this.velocityY = 0;
-			respawn = true;
-		}
 		boolean onGround = isOnGround(universe);
-			if(initialize = true) {
-				velocityX = MAX_VELOCITY_X * speed;	
-				initialize = false;
-			}
 			// RIGHT
-			if (centerX < 600) {
-				velocityX = MAX_VELOCITY_X * speed;	
+			if (centerX < leftMostX) {
+				currentAnimationX = 1;
 			}
 			// LEFT
-			if (centerX > 1500) {
-				velocityX = - MAX_VELOCITY_X * speed;
+			if (centerX > rightMostX) {
+				currentAnimationX = -1;
+			}
+			if(currentAnimationX == 1) {
+				velocityX = MAX_VELOCITY_X * speed;
+			}
+			else {
+				velocityX = -MAX_VELOCITY_X * speed;
 			}
 			
 		collisionDetection.calculate2DBounce(bounce, this, universe.getSprites(), velocityX, velocityY, actual_delta_time);
