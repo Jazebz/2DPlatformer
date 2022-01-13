@@ -538,8 +538,26 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 		} else {
 			this.velocityY = this.velocityY + ACCCELERATION_Y * 0.001 * actual_delta_time;
 		}
+		for (DisplayableSprite sprite : universe.getSprites()) {
+			if(sprite instanceof Enemy1) {
+				if(this.getMaxY() >= (sprite.getMinY()) && this.getMaxY() <= sprite.getMinY()){
+					this.score += 100;
+					((Enemy1) sprite).setDispose(true);
+					if (keyboard.keyDown(32) || keyboard.keyDown(38)) {
+						this.velocityY -= INITIAL_JUMP_VELOCITY;
+					}
+					else {
+						this.velocityY -= 250;
+					}
+					break;
+				}
+			}
+		}
 	}
 	
+	private void setDispose(boolean dispose) {
+		this.dispose = dispose;
+	}
 	@Override
 	public long getScore() {
 		return score;

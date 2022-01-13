@@ -313,7 +313,8 @@ public class Platforms implements Background {
 						map[row][col] == 10|| 
 						map[row][col] == 11||
 						map[row][col] == 24||
-						map[row][col] == 27|| 
+						map[row][col] == 27||
+						map[row][col] == 28|| 
 						map[row][col] == 29|| 
 						map[row][col] == 30|| 
 						map[row][col] == 31||

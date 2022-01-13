@@ -9,6 +9,7 @@ public class MappedUniverse implements Universe {
 	private Background middleBackground = null;
 	private DisplayableSprite player1 = null;
 	private ArrayList<DisplayableSprite> sprites = new ArrayList<DisplayableSprite>();
+	private ArrayList<DisplayableSprite> disposalList = new ArrayList<DisplayableSprite>();
 	private double xCenter = 500;
 	private double yCenter = 0;
 
@@ -87,6 +88,7 @@ public class MappedUniverse implements Universe {
 			DisplayableSprite sprite = sprites.get(i);
 			sprite.update(this, keyboard, actual_delta_time);
     	} 
+		disposeSprites();
 	}
 
 	public String toString() {
@@ -97,5 +99,29 @@ public class MappedUniverse implements Universe {
 	public Background getBackgroundMiddle() {
 		return middleBackground;
 	}	
+	protected void disposeSprites() {
+        
+    	//collect a list of sprites to dispose
+    	//this is done in a temporary list to avoid a concurrent modification exception
+		for (int i = 0; i < sprites.size(); i++) {
+			DisplayableSprite sprite = sprites.get(i);
+    		if (sprite.getDispose() == true) {
+    			disposalList.add(sprite);
+    		}
+    	}
+		
+		//go through the list of sprites to dispose
+		//note that the sprites are being removed from the original list
+		for (int i = 0; i < disposalList.size(); i++) {
+			DisplayableSprite sprite = disposalList.get(i);
+			sprites.remove(sprite);
+			System.out.println("Remove: " + sprite.toString());
+    	}
+		
+		//clear disposal list if necessary
+    	if (disposalList.size() > 0) {
+    		disposalList.clear();
+    	}
+    }
 
 }
