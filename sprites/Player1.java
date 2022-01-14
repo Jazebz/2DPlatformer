@@ -554,6 +554,16 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 				}
 			}
 		}
+		for (DisplayableSprite sprite : universe.getBarrierSprites()) {
+			if(sprite instanceof Cherry) {
+				if(this.getMaxY() >= (sprite.getMinY()) && this.getMaxY() <= sprite.getMinY()){
+					this.score += 100;
+					MappedUniverse.addNonBarrierSprite(new DeathSprite(((Cherry) sprite).getCenterX(),((Cherry) sprite).getCenterY()));
+					((Cherry) sprite).setDispose(true);
+					break;
+				}
+			}
+		}
 	}
 	
 	private void setDispose(boolean dispose) {
