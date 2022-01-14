@@ -47,7 +47,8 @@ public class AnimationFrame extends JFrame {
 	//local (and direct references to various objects in universe ... should reduce lag by avoiding dynamic lookup
 	private Animation animation = null;
 	private DisplayableSprite player1 = null;
-	private ArrayList<DisplayableSprite> sprites = null;
+	private ArrayList<DisplayableSprite> barrierSprites = null;
+	private ArrayList<DisplayableSprite> nonBarrierSprites = null;
 	private Background platforms = null;
 	private Background skyBackground = null;
 	private Background greenBackground = null;
@@ -163,7 +164,8 @@ public class AnimationFrame extends JFrame {
 
 		while (stop == false && universe != null) {
 
-			sprites = universe.getSprites();
+			barrierSprites = universe.getBarrierSprites();
+			nonBarrierSprites = universe.getNonBarrierSprites();
 			player1 = universe.getPlayer1();
 			platforms = universe.getPlatforms();
 			skyBackground = universe.getBackground();
@@ -310,7 +312,20 @@ public class AnimationFrame extends JFrame {
 			paintBackground(g, greenBackground);
 			paintBackground(g, platforms);
 
-			for (DisplayableSprite activeSprite : sprites) {
+			for (DisplayableSprite activeSprite : barrierSprites) {
+				DisplayableSprite sprite = activeSprite;
+				if (sprite.getVisible()) {
+					if (sprite.getImage() != null) {
+						g.drawImage(sprite.getImage(), translateX(sprite.getMinX()) - 20, translateY(sprite.getMinY()) - 40, scaleX(sprite.getWidth()) + 40, scaleY(sprite.getHeight()) + 40, null);
+					}
+					else {
+						g.setColor(Color.BLUE);
+						g.fillRect(translateX((sprite.getMinX())), translateY(sprite.getMinY()), scaleX(sprite.getWidth()), scaleY(sprite.getHeight()));					
+					}
+				}
+
+			}
+			for (DisplayableSprite activeSprite : nonBarrierSprites) {
 				DisplayableSprite sprite = activeSprite;
 				if (sprite.getVisible()) {
 					if (sprite.getImage() != null) {

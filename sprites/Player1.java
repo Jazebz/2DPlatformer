@@ -527,7 +527,7 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 			
 		}
 		
-		collisionDetection.calculate2DBounce(bounce, this, universe.getSprites(), velocityX, velocityY, actual_delta_time);
+		collisionDetection.calculate2DBounce(bounce, this, universe.getBarrierSprites(), velocityX, velocityY, actual_delta_time);
 		this.centerX = bounce.newX + (width / 2);
 		this.centerY = bounce.newY + (width / 2);
 		this.velocityX = bounce.newVelocityX;
@@ -538,10 +538,11 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 		} else {
 			this.velocityY = this.velocityY + ACCCELERATION_Y * 0.001 * actual_delta_time;
 		}
-		for (DisplayableSprite sprite : universe.getSprites()) {
+		for (DisplayableSprite sprite : universe.getBarrierSprites()) {
 			if(sprite instanceof Enemy1) {
 				if(this.getMaxY() >= (sprite.getMinY()) && this.getMaxY() <= sprite.getMinY()){
 					this.score += 100;
+					MappedUniverse.addNonBarrierSprite(new DeathSprite(((Enemy1) sprite).getCenterX(),((Enemy1) sprite).getCenterY()));
 					((Enemy1) sprite).setDispose(true);
 					if (keyboard.keyDown(32) || keyboard.keyDown(38)) {
 						this.velocityY -= INITIAL_JUMP_VELOCITY;
@@ -579,7 +580,7 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 	
 	private boolean isOnGround(Universe universe) {
 		boolean onGround = false;
-		for (DisplayableSprite sprite: universe.getSprites()) {
+		for (DisplayableSprite sprite: universe.getBarrierSprites()) {
 			boolean bottomColiding = this.getMaxY() >= (sprite.getMinY()) && this.getMaxY() <= sprite.getMinY();
 			boolean withinRange = this.getMaxX() > sprite.getMinX() && this.getMinX() < sprite.getMaxX();
 			if (bottomColiding && withinRange) {

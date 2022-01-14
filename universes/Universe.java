@@ -24,7 +24,8 @@ public interface Universe {
 	public DisplayableSprite getPlayer1();
 	public boolean centerOnPlayer();
 
-	public ArrayList<DisplayableSprite> getSprites();	
+	public ArrayList<DisplayableSprite> getBarrierSprites();	
+	public ArrayList<DisplayableSprite> getNonBarrierSprites();
 	
 
 	public void update(KeyboardInput keyboard, long actual_delta_time);

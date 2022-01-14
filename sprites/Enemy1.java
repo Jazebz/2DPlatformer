@@ -331,7 +331,7 @@ public class Enemy1 implements DisplayableSprite, MovableSprite, CollidingSprite
 				velocityX = -MAX_VELOCITY_X * speed;
 			}
 			
-		collisionDetection.calculate2DBounce(bounce, this, universe.getSprites(), velocityX, velocityY, actual_delta_time);
+		collisionDetection.calculate2DBounce(bounce, this, universe.getBarrierSprites(), velocityX, velocityY, actual_delta_time);
 		this.centerX = bounce.newX + (width / 2);
 		this.centerY = bounce.newY + (width / 2);
 		this.velocityX = bounce.newVelocityX;
@@ -365,7 +365,7 @@ public class Enemy1 implements DisplayableSprite, MovableSprite, CollidingSprite
 	
 	private boolean isOnGround(Universe universe) {
 		boolean onGround = false;
-		for (DisplayableSprite sprite: universe.getSprites()) {
+		for (DisplayableSprite sprite: universe.getBarrierSprites()) {
 			boolean bottomColiding = this.getMaxY() >= (sprite.getMinY()) && this.getMaxY() <= sprite.getMinY();
 			boolean withinRange = this.getMaxX() > sprite.getMinX() && this.getMinX() < sprite.getMaxX();
 			if (bottomColiding && withinRange) {

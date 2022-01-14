@@ -8,7 +8,8 @@ public class MappedUniverse implements Universe {
 	private Background background = null;
 	private Background middleBackground = null;
 	private DisplayableSprite player1 = null;
-	private ArrayList<DisplayableSprite> sprites = new ArrayList<DisplayableSprite>();
+	private ArrayList<DisplayableSprite> barrierSprites = new ArrayList<DisplayableSprite>();
+	private static ArrayList<DisplayableSprite> nonBarrierSprites = new ArrayList<DisplayableSprite>();
 	private ArrayList<DisplayableSprite> disposalList = new ArrayList<DisplayableSprite>();
 	private double xCenter = 500;
 	private double yCenter = 0;
@@ -23,11 +24,11 @@ public class MappedUniverse implements Universe {
 		
 		player1 = new Player1(Platforms.TILE_HEIGHT * 2 + 500, Platforms.TILE_WIDTH * 2 + 350);
 		
-		sprites.add(player1);
-		sprites.add(new Enemy1(1000, Platforms.TILE_WIDTH * 2 + 350, 750, 1250));
-		sprites.add(new Enemy1(2000, Platforms.TILE_WIDTH * 2 + 350, 1750, 2250));
-		sprites.add(new Enemy1(3000, Platforms.TILE_WIDTH * 2 + 350, 2750, 3250));
-		sprites.addAll(barriers);
+		barrierSprites.add(player1);
+		barrierSprites.add(new Enemy1(1000, Platforms.TILE_WIDTH * 2 + 350, 750, 1250));
+		barrierSprites.add(new Enemy1(2000, Platforms.TILE_WIDTH * 2 + 350, 1750, 2250));
+		barrierSprites.add(new Enemy1(3000, Platforms.TILE_WIDTH * 2 + 350, 2750, 3250));
+		barrierSprites.addAll(barriers);
 
 	}
 
@@ -65,14 +66,14 @@ public class MappedUniverse implements Universe {
 	public Background getBackground() {
 		return background;
 	}
+	public static void addNonBarrierSprite(DisplayableSprite sprite) {
+		nonBarrierSprites.add(sprite);
+	}
 
 	public DisplayableSprite getPlayer1() {
 		return player1;
 	}
 
-	public ArrayList<DisplayableSprite> getSprites() {
-		return sprites;
-	}
 		
 	public boolean centerOnPlayer() {
 		return true;
@@ -84,8 +85,12 @@ public class MappedUniverse implements Universe {
 			complete = true;
 		}
 		
-		for (int i = 0; i < sprites.size(); i++) {
-			DisplayableSprite sprite = sprites.get(i);
+		for (int i = 0; i < barrierSprites.size(); i++) {
+			DisplayableSprite sprite = barrierSprites.get(i);
+			sprite.update(this, keyboard, actual_delta_time);
+    	}
+		for (int i = 0; i < nonBarrierSprites.size(); i++) {
+			DisplayableSprite sprite = nonBarrierSprites.get(i);
 			sprite.update(this, keyboard, actual_delta_time);
     	} 
 		disposeSprites();
@@ -103,18 +108,28 @@ public class MappedUniverse implements Universe {
         
     	//collect a list of sprites to dispose
     	//this is done in a temporary list to avoid a concurrent modification exception
-		for (int i = 0; i < sprites.size(); i++) {
-			DisplayableSprite sprite = sprites.get(i);
+		for (int i = 0; i < barrierSprites.size(); i++) {
+			DisplayableSprite sprite = barrierSprites.get(i);
     		if (sprite.getDispose() == true) {
     			disposalList.add(sprite);
     		}
     	}
-		
+		for (int i = 0; i < nonBarrierSprites.size(); i++) {
+			DisplayableSprite sprite = nonBarrierSprites.get(i);
+    		if (sprite.getDispose() == true) {
+    			disposalList.add(sprite);
+    		}
+    	}
 		//go through the list of sprites to dispose
 		//note that the sprites are being removed from the original list
 		for (int i = 0; i < disposalList.size(); i++) {
 			DisplayableSprite sprite = disposalList.get(i);
-			sprites.remove(sprite);
+			barrierSprites.remove(sprite);
+			System.out.println("Remove: " + sprite.toString());
+    	}
+		for (int i = 0; i < disposalList.size(); i++) {
+			DisplayableSprite sprite = disposalList.get(i);
+			nonBarrierSprites.remove(sprite);
 			System.out.println("Remove: " + sprite.toString());
     	}
 		
@@ -123,5 +138,12 @@ public class MappedUniverse implements Universe {
     		disposalList.clear();
     	}
     }
+
+	public ArrayList<DisplayableSprite> getBarrierSprites() {
+		return barrierSprites;
+	}
+	public ArrayList<DisplayableSprite> getNonBarrierSprites() {
+		return nonBarrierSprites;
+	}
 
 }

@@ -5,40 +5,25 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class DeathSprite implements DisplayableSprite, MovableSprite, CollidingSprite {
-	private double ACCCELERATION_Y = 1000; 	//PIXELS PER SECOND PER SECOND
-	private double MAX_VELOCITY_X = 200;	//PIXELS PER SECOND
-	private double maxVelocity = 400;
-
-	private boolean isJumping = false;
-	private final double INITIAL_JUMP_VELOCITY = 500; //pixels / second
-	
-	private CollisionDetection collisionDetection;
-	TwoDimensionBounce bounce;
-	
-	private static final int VELOCITY = 200;
 	Image explosionOne = null;
 	Image explosionTwo = null;
-	Image walkingRightThree = null;
-	Image walkingRightFour = null;
-	Image walkingRightFive = null;
-	Image walkingRightSix = null;
+	Image explosionThree = null;
+	Image explosionFour = null;
+	Image explosionFive = null;
+	Image explosionSix = null;
 	private double centerX = 0.0;
 	private double centerY = 0.0;
-	private double height = 49.0;
-	private double width = 49.0;
+	private double height = 70.0;
+	private double width = 70.0;
 	private boolean dispose = false;
-	private double velocityX = MAX_VELOCITY_X;
+	private double velocityX = 200;
 	private double velocityY = 0;
 	private boolean message = false;
 	private boolean isAtExit = false;
 	private long score = 0;
 	private double currentFrame;
-	private double frameRate = 0.075;
-	private double speed = 1;
-	private int currentAnimationX = 1;
+	private double frameRate = 0.1;
 	private boolean respawn = true;
-	private double rightMostX = 0;
-	private double leftMostX = 0;
 	
 	
 	public DeathSprite() {
@@ -50,7 +35,7 @@ public class DeathSprite implements DisplayableSprite, MovableSprite, CollidingS
 		
 		if (explosionOne == null) {
 			try {
-				explosionOne = ImageIO.read(new File("res/sprites/Enemyopossum/Walkingright1.png"));
+				explosionOne = ImageIO.read(new File("res/sprites/Enemydeath/enemy-death-1.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -58,39 +43,39 @@ public class DeathSprite implements DisplayableSprite, MovableSprite, CollidingS
 		}
 		if (explosionTwo == null) {
 			try {
-				explosionTwo = ImageIO.read(new File("res/sprites/Enemyopossum/Walkingright2.png"));
+				explosionTwo = ImageIO.read(new File("res/sprites/Enemydeath/enemy-death-2.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
 			}		
 		}
-		if (walkingRightThree == null) {
+		if (explosionThree == null) {
 			try {
-				walkingRightThree = ImageIO.read(new File("res/sprites/Enemyopossum/Walkingright3.png"));
+				explosionThree = ImageIO.read(new File("res/sprites/Enemydeath/enemy-death-3.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
 			}		
 		}
-		if (walkingRightFour == null) {
+		if (explosionFour == null) {
 			try {
-				walkingRightFour = ImageIO.read(new File("res/sprites/Enemyopossum/Walkingright4.png"));
+				explosionFour = ImageIO.read(new File("res/sprites/Enemydeath/enemy-death-4.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
 			}		
 		}
-		if (walkingRightFive == null) {
+		if (explosionFive == null) {
 			try {
-				walkingRightFive = ImageIO.read(new File("res/sprites/Enemyopossum/Walkingright5.png"));
+				explosionFive = ImageIO.read(new File("res/sprites/Enemydeath/enemy-death-5.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
 			}		
 		}
-		if (walkingRightSix == null) {
+		if (explosionSix == null) {
 			try {
-				walkingRightSix = ImageIO.read(new File("res/sprites/Enemyopossum/Walkingright6.png"));
+				explosionSix = ImageIO.read(new File("res/sprites/Enemydeath/enemy-death-6.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -129,7 +114,28 @@ public class DeathSprite implements DisplayableSprite, MovableSprite, CollidingS
 	public Image getImage() {
 		//Sprite Animation (Changes Image)
 		currentFrame += frameRate;
-		return explosionOne;
+		if((int)currentFrame == 0) {
+			return explosionOne;
+		}
+		else if((int)currentFrame == 1){
+			return explosionTwo;
+		}
+		else if((int)currentFrame == 2){
+			return explosionThree;
+		}
+		else if((int)currentFrame == 3){
+			return explosionFour;
+		}
+		else if((int)currentFrame == 4){
+			return explosionFive;
+		}
+		else if((int)currentFrame == 5){
+			return explosionSix;
+		}
+		else {
+			setDispose(true);
+			return explosionOne;
+		}
 		
 	}
 
