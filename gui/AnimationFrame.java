@@ -329,19 +329,6 @@ public class AnimationFrame extends JFrame {
 			paintBackground(g, greenBackground);
 			paintBackground(g, platforms);
 
-			for (DisplayableSprite activeSprite : barrierSprites) {
-				DisplayableSprite sprite = activeSprite;
-				if (sprite.getVisible()) {
-					if (sprite.getImage() != null) {
-						g.drawImage(sprite.getImage(), translateX(sprite.getMinX()) - 20, translateY(sprite.getMinY()) - 40, scaleX(sprite.getWidth()) + 40, scaleY(sprite.getHeight()) + 40, null);
-					}
-					else {
-						g.setColor(Color.BLUE);
-						g.fillRect(translateX((sprite.getMinX())), translateY(sprite.getMinY()), scaleX(sprite.getWidth()), scaleY(sprite.getHeight()));					
-					}
-				}
-
-			}
 			for (DisplayableSprite activeSprite : nonBarrierSprites) {
 				DisplayableSprite sprite = activeSprite;
 				if (sprite.getVisible()) {
@@ -356,6 +343,19 @@ public class AnimationFrame extends JFrame {
 
 			}
 
+			for (DisplayableSprite activeSprite : barrierSprites) {
+				DisplayableSprite sprite = activeSprite;
+				if (sprite.getVisible()) {
+					if (sprite.getImage() != null) {
+						g.drawImage(sprite.getImage(), translateX(sprite.getMinX()) - 20, translateY(sprite.getMinY()) - 40, scaleX(sprite.getWidth()) + 40, scaleY(sprite.getHeight()) + 40, null);
+					}
+					else {
+						g.setColor(Color.BLUE);
+						g.fillRect(translateX((sprite.getMinX())), translateY(sprite.getMinY()), scaleX(sprite.getWidth()), scaleY(sprite.getHeight()));					
+					}
+				}
+
+			}
 		}
 		
 		private int translateX(double x) {
@@ -456,7 +456,7 @@ public class AnimationFrame extends JFrame {
 			else if(background == greenBackground) {
 
 				//what tile covers the top-left corner?
-				double xTopLeft =  (xCenter * 0.75 - (xpCenter / scale));
+				double xTopLeft =  (xCenter * 0.65 - (xpCenter / scale));
 				double yTopLeft =  (yCenter - (ypCenter / scale));
 				
 				int row = background.getRow((int)yTopLeft);
@@ -473,7 +473,7 @@ public class AnimationFrame extends JFrame {
 						rowDrawn = true;			
 					}
 					else {
-						g.drawImage(tile.getImage(), scaleX(tile.getMinX() - xCenter * 0.75) + 250, 275, tile.getWidth(), tile.getHeight(), null);
+						g.drawImage(tile.getImage(), scaleX(tile.getMinX() - xCenter * 0.65) + 250, 275, tile.getWidth(), tile.getHeight(), null);
 					}					
 					//does the RHE of this tile extend past the RHE of the visible area?
 					if (translateX(tile.getMinX() + tile.getWidth()) > SCREEN_WIDTH || tile.isOutOfBounds()) {

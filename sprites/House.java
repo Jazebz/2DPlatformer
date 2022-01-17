@@ -4,27 +4,27 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Sign implements DisplayableSprite, CollidingSprite {
+public class House implements DisplayableSprite, CollidingSprite {
 
 	Image sign = null;
 
 	private boolean visible = true;
 	private double centerX = 0;
 	private double centerY = 0;
-	private double width = 20;
-	private double height = 20;
+	private double width = 300;
+	private double height = 300;
 	private boolean dispose = false;
 		
-	public Sign() {
+	public House() {
 		this(0.0, 0.0);
 	}
-	public Sign(double centerX, double centerY) {
+	public House(double centerX, double centerY) {
 		this.centerX = centerX;
 		this.centerY = centerY;
 		
 		if (sign == null) {
 			try {
-				sign = ImageIO.read(new File("res/sprites/Sign/sign.png"));
+				sign = ImageIO.read(new File("res/sprites/House/house.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
