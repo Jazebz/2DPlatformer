@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Cherry implements DisplayableSprite {
+public class Cherry implements DisplayableSprite, CollidingSprite {
 
 	Image cherryOne = null;
 	Image cherryTwo = null;
@@ -12,9 +12,10 @@ public class Cherry implements DisplayableSprite {
 	Image cherryFour = null;
 	Image cherryFive = null;
 	Image cherrySix = null;
+	Image cherrySeven = null;
 
 	private double currentFrame = 0;
-	private double frameRate = 0.1;
+	private double frameRate = 0.075;
 	private boolean visible = true;
 	private double centerX = 0;
 	private double centerY = 0;
@@ -77,6 +78,14 @@ public class Cherry implements DisplayableSprite {
 				System.out.println(e.toString());
 			}		
 		}
+		if (cherrySeven == null) {
+			try {
+				cherrySeven = ImageIO.read(new File("res/sprites/Cherry/cherry-7.png"));
+			}
+			catch (IOException e) {
+				System.out.println(e.toString());
+			}		
+		}
 		
 	}
 	
@@ -100,6 +109,9 @@ public class Cherry implements DisplayableSprite {
 		}
 		else if((int)currentFrame == 5){
 			return cherrySix;
+		}
+		else if((int)currentFrame == 6){
+			return cherrySeven;
 		}
 		else {
 			currentFrame = 0;
@@ -174,6 +186,21 @@ public class Cherry implements DisplayableSprite {
 	public void setRespawn(boolean b) {
 		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	public long getScore() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public String getProximityMessage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public boolean getIsAtExit() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

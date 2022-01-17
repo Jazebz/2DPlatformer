@@ -25,10 +25,14 @@ public class MappedUniverse implements Universe {
 		player1 = new Player1(Platforms.TILE_HEIGHT * 2 + 500, Platforms.TILE_WIDTH * 2 + 350);
 		
 		barrierSprites.add(player1);
+		//barrierSprites.add(new Enemy1(1000, Platforms.TILE_WIDTH * 2 + 350, 750, 1250));
+		//barrierSprites.add(new Enemy1(2000, Platforms.TILE_WIDTH * 2 + 350, 1750, 2250));
+		//barrierSprites.add(new Enemy1(3000, Platforms.TILE_WIDTH * 2 + 350, 2750, 3250));
+		//nonBarrierSprites.add(new Cherry(3000, Platforms.TILE_WIDTH * 2 + 450));
+		//nonBarrierSprites.add(new Cherry(1000, Platforms.TILE_WIDTH * 2 + 450));
+		//nonBarrierSprites.add(new Cherry(2000, Platforms.TILE_WIDTH * 2 + 450));
+		//nonBarrierSprites.add(new Sign(2000, Platforms.TILE_WIDTH * 2 + 450));
 		barrierSprites.add(new Enemy1(1000, Platforms.TILE_WIDTH * 2 + 350, 750, 1250));
-		barrierSprites.add(new Enemy1(2000, Platforms.TILE_WIDTH * 2 + 350, 1750, 2250));
-		barrierSprites.add(new Enemy1(3000, Platforms.TILE_WIDTH * 2 + 350, 2750, 3250));
-		nonBarrierSprites.add(new Cherry(3000, Platforms.TILE_WIDTH * 2 + 350));
 		barrierSprites.addAll(barriers);
 
 	}
@@ -95,6 +99,8 @@ public class MappedUniverse implements Universe {
 			sprite.update(this, keyboard, actual_delta_time);
     	} 
 		disposeSprites();
+		if(player1.getRespawn()) {
+		}
 	}
 
 	public String toString() {

@@ -4,18 +4,16 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class DeathSprite implements DisplayableSprite, MovableSprite, CollidingSprite {
+public class DeathItem implements DisplayableSprite, MovableSprite, CollidingSprite {
 	Image explosionOne = null;
 	Image explosionTwo = null;
 	Image explosionThree = null;
 	Image explosionFour = null;
-	Image explosionFive = null;
-	Image explosionSix = null;
 	Image blank = null;
 	private double centerX = 0.0;
 	private double centerY = 0.0;
-	private double height = 70.0;
-	private double width = 70.0;
+	private double height = 50.0;
+	private double width = 50.0;
 	private boolean dispose = false;
 	private double velocityX = 200;
 	private double velocityY = 0;
@@ -27,16 +25,16 @@ public class DeathSprite implements DisplayableSprite, MovableSprite, CollidingS
 	private boolean respawn = true;
 	
 	
-	public DeathSprite() {
+	public DeathItem() {
 		this(0.0, 0.0);
 	}
-	public DeathSprite(double centerX, double centerY) {
+	public DeathItem(double centerX, double centerY) {
 		this.centerX = centerX;
 		this.centerY = centerY;
 		
 		if (explosionOne == null) {
 			try {
-				explosionOne = ImageIO.read(new File("res/sprites/Enemydeath/enemy-death-1.png"));
+				explosionOne = ImageIO.read(new File("res/sprites/Itemdeath/item-feedback-1.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -44,7 +42,7 @@ public class DeathSprite implements DisplayableSprite, MovableSprite, CollidingS
 		}
 		if (explosionTwo == null) {
 			try {
-				explosionTwo = ImageIO.read(new File("res/sprites/Enemydeath/enemy-death-2.png"));
+				explosionTwo = ImageIO.read(new File("res/sprites/Itemdeath/item-feedback-2.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -52,7 +50,7 @@ public class DeathSprite implements DisplayableSprite, MovableSprite, CollidingS
 		}
 		if (explosionThree == null) {
 			try {
-				explosionThree = ImageIO.read(new File("res/sprites/Enemydeath/enemy-death-3.png"));
+				explosionThree = ImageIO.read(new File("res/sprites/Itemdeath/item-feedback-3.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -60,23 +58,7 @@ public class DeathSprite implements DisplayableSprite, MovableSprite, CollidingS
 		}
 		if (explosionFour == null) {
 			try {
-				explosionFour = ImageIO.read(new File("res/sprites/Enemydeath/enemy-death-4.png"));
-			}
-			catch (IOException e) {
-				System.out.println(e.toString());
-			}		
-		}
-		if (explosionFive == null) {
-			try {
-				explosionFive = ImageIO.read(new File("res/sprites/Enemydeath/enemy-death-5.png"));
-			}
-			catch (IOException e) {
-				System.out.println(e.toString());
-			}		
-		}
-		if (explosionSix == null) {
-			try {
-				explosionSix = ImageIO.read(new File("res/sprites/Enemydeath/enemy-death-6.png"));
+				explosionFour = ImageIO.read(new File("res/sprites/Itemdeath/item-feedback-4.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -134,12 +116,6 @@ public class DeathSprite implements DisplayableSprite, MovableSprite, CollidingS
 		}
 		else if((int)currentFrame == 3){
 			return explosionFour;
-		}
-		else if((int)currentFrame == 4){
-			return explosionFive;
-		}
-		else if((int)currentFrame == 5){
-			return explosionSix;
 		}
 		else {
 			setDispose(true);

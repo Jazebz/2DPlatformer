@@ -487,13 +487,6 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 
 	@Override
 	public void update(Universe universe, KeyboardInput keyboard, long actual_delta_time) {
-		//Respawn
-		if(this.centerY > 2500) {
-			this.centerY = 550;
-			this.centerX = 500;
-			this.velocityY = 0;
-			respawn = true;
-		}
 		boolean onGround = isOnGround(universe);
 			if(keyboard.keyDown(16)) {
 				speed = 1.5;
@@ -540,29 +533,47 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 		}
 		for (DisplayableSprite sprite : universe.getBarrierSprites()) {
 			if(sprite instanceof Enemy1) {
-				if(this.getMaxY() >= (sprite.getMinY()) && this.getMaxY() <= sprite.getMinY()){
-					this.score += 100;
-					MappedUniverse.addNonBarrierSprite(new DeathSprite(((Enemy1) sprite).getCenterX(),((Enemy1) sprite).getCenterY()));
-					((Enemy1) sprite).setDispose(true);
-					if (keyboard.keyDown(32) || keyboard.keyDown(38)) {
-						this.velocityY -= INITIAL_JUMP_VELOCITY;
+				if(CollisionDetection.overlaps(this.getMinX() - 2, this.getMinY() - 2,
+						this.getMaxX() + 2, this.getMaxY() + 2,
+						sprite.getMinX(), sprite.getMinY(),
+						sprite.getMaxX(), sprite.getMaxY())) {
+					if(this.getMaxY() >= (sprite.getMinY()) && this.getMaxY() <= sprite.getMinY()){
+						this.score += 100;
+						MappedUniverse.addNonBarrierSprite(new DeathSprite(((Enemy1) sprite).getCenterX(),((Enemy1) sprite).getCenterY()));
+						((Enemy1) sprite).setDispose(true);
+						if (keyboard.keyDown(32) || keyboard.keyDown(38)) {
+							this.velocityY -= INITIAL_JUMP_VELOCITY;
+						}
+						else {
+							this.velocityY -= 250;
+						}
+						break;
 					}
 					else {
-						this.velocityY -= 250;
+						setRespawn(true);
 					}
-					break;
 				}
 			}
 		}
-		for (DisplayableSprite sprite : universe.getBarrierSprites()) {
+		for (DisplayableSprite sprite : universe.getNonBarrierSprites()) {
 			if(sprite instanceof Cherry) {
-				if(this.getMaxY() >= (sprite.getMinY()) && this.getMaxY() <= sprite.getMinY()){
+				if(CollisionDetection.overlaps(this.getMinX(), this.getMinY(),
+						this.getMaxX(), this.getMaxY(),
+						sprite.getMinX(), sprite.getMinY(),
+						sprite.getMaxX(), sprite.getMaxY())){
 					this.score += 100;
-					MappedUniverse.addNonBarrierSprite(new DeathSprite(((Cherry) sprite).getCenterX(),((Cherry) sprite).getCenterY()));
+					MappedUniverse.addNonBarrierSprite(new DeathItem(((Cherry) sprite).getCenterX(),((Cherry) sprite).getCenterY()));
 					((Cherry) sprite).setDispose(true);
 					break;
 				}
 			}
+		}
+		//Respawn
+		if(this.centerY > 2500 || respawn == true) {
+			this.centerY = 550;
+			this.centerX = 500;
+			this.velocityY = 0;
+			respawn = true;
 		}
 	}
 	

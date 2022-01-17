@@ -29,7 +29,9 @@ public class AnimationFrame extends JFrame {
 	private JLabel lblTime;
 	private JLabel lblLevelLabel;
 	private JLabel lblLevel;
-	private JLabel lblStatus;;
+	private JLabel lblStatus;
+	private JLabel lblXCenter;
+	private JLabel lblXCenterNum;
 
 	private static boolean stop = false;
 
@@ -122,14 +124,14 @@ public class AnimationFrame extends JFrame {
 		lblLevelLabel = new JLabel("Level: ");
 		lblLevelLabel.setForeground(Color.YELLOW);
 		lblLevelLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
-		lblLevelLabel.setBounds(528, 22, 128, 30);
+		lblLevelLabel.setBounds(578, 22, 128, 30);
 		getContentPane().add(lblLevelLabel);
 		getContentPane().setComponentZOrder(lblLevelLabel, 0);
 
 		lblLevel = new JLabel("1");
 		lblLevel.setForeground(Color.YELLOW);
 		lblLevel.setFont(new Font("Tahoma", Font.BOLD, 30));
-		lblLevel.setBounds(672, 22, 48, 30);
+		lblLevel.setBounds(722, 22, 48, 30);
 		getContentPane().add(lblLevel);
 		getContentPane().setComponentZOrder(lblLevel, 0);
 
@@ -139,6 +141,20 @@ public class AnimationFrame extends JFrame {
 		lblStatus.setBounds(0, SCREEN_HEIGHT - 30 - 16, SCREEN_WIDTH, 36);
 		getContentPane().add(lblStatus);
 		getContentPane().setComponentZOrder(lblStatus, 0);
+		
+		lblXCenter = new JLabel("XCenter");
+		lblXCenter.setForeground(Color.YELLOW);
+		lblXCenter.setFont(new Font("Tahoma", Font.BOLD, 30));
+		lblXCenter.setBounds(300, 22, 128, 30);
+		getContentPane().add(lblXCenter);
+		getContentPane().setComponentZOrder(lblXCenter, 0);
+		
+		lblXCenterNum = new JLabel("0");
+		lblXCenterNum.setForeground(Color.YELLOW);
+		lblXCenterNum.setFont(new Font("Tahoma", Font.BOLD, 30));
+		lblXCenterNum.setBounds(425, 22, 128, 30);
+		getContentPane().add(lblXCenterNum);
+		getContentPane().setComponentZOrder(lblXCenterNum, 0);
 
 	}
 
@@ -210,6 +226,7 @@ public class AnimationFrame extends JFrame {
 				//REFRESH
 //				this.scale = universe.getScale();
 				this.repaint();
+				lblXCenterNum.setText(String.valueOf(xCenter));
 			}
 
 			universe = animation.getNextUniverse();
@@ -456,7 +473,7 @@ public class AnimationFrame extends JFrame {
 						rowDrawn = true;			
 					}
 					else {
-						g.drawImage(tile.getImage(), scaleX(tile.getMinX() - xCenter * 0.75), 275, tile.getWidth(), tile.getHeight(), null);
+						g.drawImage(tile.getImage(), scaleX(tile.getMinX() - xCenter * 0.75) + 250, 275, tile.getWidth(), tile.getHeight(), null);
 					}					
 					//does the RHE of this tile extend past the RHE of the visible area?
 					if (translateX(tile.getMinX() + tile.getWidth()) > SCREEN_WIDTH || tile.isOutOfBounds()) {
