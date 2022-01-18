@@ -40,6 +40,8 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 	Image jumpingRightDown = null;
 	Image jumpingLeftUp = null;
 	Image jumpingLeftDown = null;
+	Image hurtOne = null;
+	Image hurtTwo = null;
 	private double centerX = 0.0;
 	private double centerY = 0.0;
 	private double height = 49.0;
@@ -58,6 +60,8 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 	private boolean idle = true;
 	private double dashCoolDown = 0;
 	private boolean respawn = false;
+	private boolean hurt = false;
+	private int health = 3;
 	
 	
 	public Player1() {
@@ -264,6 +268,22 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 				System.out.println(e.toString());
 			}		
 		}
+		if (hurtOne == null) {
+			try {
+				hurtOne = ImageIO.read(new File("res/sprites/Fox/Hurt/player-hurt-1.png"));
+			}
+			catch (IOException e) {
+				System.out.println(e.toString());
+			}		
+		}
+		if (hurtTwo == null) {
+			try {
+				hurtTwo = ImageIO.read(new File("res/sprites/Fox/Hurt/player-hurt-2.png"));
+			}
+			catch (IOException e) {
+				System.out.println(e.toString());
+			}		
+		}
 		
 	}
 
@@ -296,13 +316,39 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 	@Override
 	public Image getImage() {
 		//Sprite Animation (Changes Image)
-		if(idle == false) {
+		if(idle == false || hurt == true) {
 			currentFrame += frameRate * speed;
 		}
 		else {
 			currentFrame += frameRate;
 		}
+		if(hurt == true) {
+			if((int)currentFrame == 0) {
+				return hurtOne;
+			}
+			else if((int)currentFrame == 1){
+				return hurtOne;
+			}
+			else if((int)currentFrame == 2){
+				return hurtOne;
+			}
+			else if((int)currentFrame == 3){
+				return hurtTwo;
+			}
+			else if((int)currentFrame == 4) {
+				return hurtTwo;
+			}
+			else if((int)currentFrame == 5){
+				return hurtTwo;
+			}
+			else {
+				currentFrame = 0;
+				hurt = false;
+				return hurtTwo;
+			}
+		}
 		if((velocityX != 0) || (velocityY != 0)) {
+			
 			//Up
 			if(velocityY < 0) {
 				if(currentAnimationX == 1) {
@@ -550,7 +596,11 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 						break;
 					}
 					else {
-						setRespawn(true);
+						if(health >= 1 && hurt == false) {
+							this.health -= 1;
+							currentFrame = 0;
+							hurt = true;
+						}
 					}
 				}
 			}
@@ -561,22 +611,29 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 						this.getMaxX(), this.getMaxY(),
 						sprite.getMinX(), sprite.getMinY(),
 						sprite.getMaxX(), sprite.getMaxY())){
-					this.score += 100;
 					MappedUniverse.addNonBarrierSprite(new DeathItem(((Cherry) sprite).getCenterX(),((Cherry) sprite).getCenterY()));
 					((Cherry) sprite).setDispose(true);
+					if(this.health <= 3) {
+						this.health += 1;
+					}
 					break;
 				}
 			}
 		}
 		//Respawn
-		if(this.centerY > 2500 || respawn == true) {
-			this.centerY = 550;
-			this.centerX = 500;
-			this.velocityY = 0;
-			respawn = true;
+		if(this.centerY > 2500 || respawn == true || this.health == 0) {
+			setRespawn(true);
+			respawn();
 		}
 	}
-	
+	private void respawn() {
+		this.centerY = 550;
+		this.centerX = 500;
+		this.velocityY = 0;
+		this.health = 3;
+		setRespawn(false);
+		hurt = false;
+	}
 	private void setDispose(boolean dispose) {
 		this.dispose = dispose;
 	}
