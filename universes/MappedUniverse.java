@@ -35,6 +35,7 @@ public class MappedUniverse implements Universe {
 		nonBarrierSprites.add(new Sign(1350, Platforms.TILE_WIDTH * 2 + 490));
 		nonBarrierSprites.add(new Sign(2600, Platforms.TILE_WIDTH * 2 + 490));
 		nonBarrierSprites.add(new House(550, Platforms.TILE_WIDTH * 2 + 350));
+		nonBarrierSprites.add(new Hearts(550, Platforms.TILE_WIDTH * 2 + 350, 1));
 		barrierSprites.add(new Enemy1(3250, Platforms.TILE_WIDTH * 2 + 350, 3000, 3500));
 		barrierSprites.addAll(barriers);
 

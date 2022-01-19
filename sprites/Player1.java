@@ -327,7 +327,7 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 				return hurtOne;
 			}
 			else if((int)currentFrame == 1){
-				return hurtOne;
+				return hurtTwo;
 			}
 			else if((int)currentFrame == 2){
 				return hurtOne;
@@ -336,14 +336,35 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 				return hurtTwo;
 			}
 			else if((int)currentFrame == 4) {
-				return hurtTwo;
+				return hurtOne;
 			}
 			else if((int)currentFrame == 5){
+				return hurtTwo;
+			}
+			else if((int)currentFrame == 6) {
+				return hurtOne;
+			}
+			else if((int)currentFrame == 7){
+				return hurtTwo;
+			}
+			else if((int)currentFrame == 8) {
+				return hurtOne;
+			}
+			else if((int)currentFrame == 9){
+				return hurtTwo;
+			}
+			else if((int)currentFrame == 10) {
+				return hurtOne;
+			}
+			else if((int)currentFrame == 11){
 				return hurtTwo;
 			}
 			else {
 				currentFrame = 0;
 				hurt = false;
+				if(health == 0) {
+					respawn();
+				}
 				return hurtTwo;
 			}
 		}
@@ -621,7 +642,7 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 			}
 		}
 		//Respawn
-		if(this.centerY > 2500 || respawn == true || this.health == 0) {
+		if(this.centerY > 2500 || respawn == true) {
 			setRespawn(true);
 			respawn();
 		}

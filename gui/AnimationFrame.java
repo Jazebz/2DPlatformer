@@ -20,8 +20,8 @@ public class AnimationFrame extends JFrame {
 
 	private double scale = 1;
 	//point in universe on which the screen will center
-	private double xCenter = 0;		
-	private double yCenter = 0;
+	private static double xCenter = 0;		
+	private static double yCenter = 0;
 
 	private JPanel panel = null;
 	private JButton btnPauseRun;
@@ -490,5 +490,11 @@ public class AnimationFrame extends JFrame {
 		System.out.println("windowClosing()");
 		stop = true;
 		dispose();	
+	}
+	public static double getXCenter() {
+		return xCenter;
+	}
+	public static double getYCenter() {
+		return yCenter;
 	}
 }
