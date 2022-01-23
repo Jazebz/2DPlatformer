@@ -10,7 +10,9 @@ public class MappedUniverse implements Universe {
 	private DisplayableSprite player1 = null;
 	private ArrayList<DisplayableSprite> barrierSprites = new ArrayList<DisplayableSprite>();
 	private static ArrayList<DisplayableSprite> nonBarrierSprites = new ArrayList<DisplayableSprite>();
-	private ArrayList<DisplayableSprite> disposalList = new ArrayList<DisplayableSprite>();
+	private ArrayList<DisplayableSprite> barrierDisposalList = new ArrayList<DisplayableSprite>();
+	private ArrayList<DisplayableSprite> nonBarrierDisposalList = new ArrayList<DisplayableSprite>();
+	private ArrayList<DisplayableSprite> temporaryDisposalList = new ArrayList<DisplayableSprite>();
 	private double xCenter = 500;
 	private double yCenter = 0;
 
@@ -28,15 +30,28 @@ public class MappedUniverse implements Universe {
 		//barrierSprites.add(new Enemy1(1000, Platforms.TILE_WIDTH * 2 + 350, 750, 1250));
 		//barrierSprites.add(new Enemy1(2000, Platforms.TILE_WIDTH * 2 + 350, 1750, 2250));
 		//barrierSprites.add(new Enemy1(3000, Platforms.TILE_WIDTH * 2 + 350, 2750, 3250));
-		//nonBarrierSprites.add(new Cherry(3000, Platforms.TILE_WIDTH * 2 + 450));
-		//nonBarrierSprites.add(new Cherry(1000, Platforms.TILE_WIDTH * 2 + 450));
-		//nonBarrierSprites.add(new Cherry(2000, Platforms.TILE_WIDTH * 2 + 450))
-		nonBarrierSprites.add(new Sign(875, Platforms.TILE_WIDTH * 2 + 490));
-		nonBarrierSprites.add(new Sign(1350, Platforms.TILE_WIDTH * 2 + 490));
-		nonBarrierSprites.add(new Sign(2600, Platforms.TILE_WIDTH * 2 + 490));
+		nonBarrierSprites.add(new Sign(875, Platforms.TILE_WIDTH * 2 + 490, 1));
+		nonBarrierSprites.add(new Message(895, Platforms.TILE_WIDTH * 2 + 430, 1, 175, 25));
+		
+		nonBarrierSprites.add(new Sign(1350, Platforms.TILE_WIDTH * 2 + 490, 2));
+		nonBarrierSprites.add(new Message(1370, Platforms.TILE_WIDTH * 2 + 430, 2, 150, 25));
+		
+		nonBarrierSprites.add(new Sign(2600, Platforms.TILE_WIDTH * 2 + 490, 3));
+		nonBarrierSprites.add(new Message(2620, Platforms.TILE_WIDTH * 2 + 430, 3, 175, 25));
+
+		nonBarrierSprites.add(new Sign(3500, Platforms.TILE_WIDTH * 2 + 490, 4));
+		nonBarrierSprites.add(new Message(3520, Platforms.TILE_WIDTH * 2 + 430, 4, 175, 25));
+		
+		nonBarrierSprites.add(new Sign(4450, Platforms.TILE_WIDTH * 2 + 490, 5));
+		
 		nonBarrierSprites.add(new House(550, Platforms.TILE_WIDTH * 2 + 350));
-		nonBarrierSprites.add(new Hearts(550, Platforms.TILE_WIDTH * 2 + 350, 1));
-		barrierSprites.add(new Enemy1(3250, Platforms.TILE_WIDTH * 2 + 350, 3000, 3500));
+		nonBarrierSprites.add(new Hearts(75, 75, 0));
+		nonBarrierSprites.add(new Hearts(75, 75, 1));
+		nonBarrierSprites.add(new Hearts(75, 75, 2));
+		barrierSprites.add(new Enemy1(3000, Platforms.TILE_WIDTH * 2 + 350, 2750, 3250));
+		nonBarrierSprites.add(new Cherry(3900, Platforms.TILE_WIDTH * 2 + 350));
+		nonBarrierSprites.add(new Cherry(3975, Platforms.TILE_WIDTH * 2 + 350));
+		nonBarrierSprites.add(new Cherry(4050, Platforms.TILE_WIDTH * 2 + 350));
 		barrierSprites.addAll(barriers);
 
 	}
@@ -90,6 +105,7 @@ public class MappedUniverse implements Universe {
 	
 	public void update(KeyboardInput keyboard, long actual_delta_time) {
 
+		
 		if (keyboard.keyDownOnce(27)) {
 			complete = true;
 		}
@@ -102,9 +118,27 @@ public class MappedUniverse implements Universe {
 			DisplayableSprite sprite = nonBarrierSprites.get(i);
 			sprite.update(this, keyboard, actual_delta_time);
     	} 
-		disposeSprites();
 		if(player1.getRespawn()) {
+			for (int i = 0; i < barrierDisposalList.size(); i++) {
+				DisplayableSprite sprite = barrierDisposalList.get(i);
+				sprite.setDispose(false);
+	    	}
+			for (int i = 0; i < nonBarrierDisposalList.size(); i++) {
+				DisplayableSprite sprite = nonBarrierDisposalList.get(i);
+				sprite.setDispose(false);
+	    	}
+			barrierSprites.addAll(barrierDisposalList);
+			nonBarrierSprites.addAll(nonBarrierDisposalList);
+			if (nonBarrierDisposalList.size() > 0) {
+				nonBarrierDisposalList.clear();
+		    }
+			if (barrierDisposalList.size() > 0) {
+				barrierDisposalList.clear();
+			}
+			player1.setRespawn(false);
 		}
+		disposeSprites();
+		
 	}
 
 	public String toString() {
@@ -117,36 +151,38 @@ public class MappedUniverse implements Universe {
 	}	
 	protected void disposeSprites() {
         
-    	//collect a list of sprites to dispose
+		//collect a list of sprites to dispose
     	//this is done in a temporary list to avoid a concurrent modification exception
 		for (int i = 0; i < barrierSprites.size(); i++) {
 			DisplayableSprite sprite = barrierSprites.get(i);
     		if (sprite.getDispose() == true) {
-    			disposalList.add(sprite);
+    			barrierDisposalList.add(sprite);
+    			temporaryDisposalList.add(sprite);
     		}
     	}
 		for (int i = 0; i < nonBarrierSprites.size(); i++) {
 			DisplayableSprite sprite = nonBarrierSprites.get(i);
     		if (sprite.getDispose() == true) {
-    			disposalList.add(sprite);
+    			nonBarrierDisposalList.add(sprite);
+    			temporaryDisposalList.add(sprite);
     		}
     	}
 		//go through the list of sprites to dispose
 		//note that the sprites are being removed from the original list
-		for (int i = 0; i < disposalList.size(); i++) {
-			DisplayableSprite sprite = disposalList.get(i);
+		for (int i = 0; i < temporaryDisposalList.size(); i++) {
+			DisplayableSprite sprite = temporaryDisposalList.get(i);
 			barrierSprites.remove(sprite);
 			System.out.println("Remove: " + sprite.toString());
     	}
-		for (int i = 0; i < disposalList.size(); i++) {
-			DisplayableSprite sprite = disposalList.get(i);
+		for (int i = 0; i < temporaryDisposalList.size(); i++) {
+			DisplayableSprite sprite = temporaryDisposalList.get(i);
 			nonBarrierSprites.remove(sprite);
 			System.out.println("Remove: " + sprite.toString());
     	}
 		
 		//clear disposal list if necessary
-    	if (disposalList.size() > 0) {
-    		disposalList.clear();
+    	if (temporaryDisposalList.size() > 0) {
+    		temporaryDisposalList.clear();
     	}
     }
 
@@ -158,3 +194,9 @@ public class MappedUniverse implements Universe {
 	}
 
 }
+
+
+
+
+
+

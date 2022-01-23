@@ -4,40 +4,68 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Sign implements DisplayableSprite, CollidingSprite {
+public class Message implements DisplayableSprite, CollidingSprite {
 
-	Image sign = null;
+	Image message = null;
 
-	private boolean visible = true;
+	private boolean visible = false;
 	private double centerX = 0;
-	private double centerY = 0;
-	private double width = 20;
-	private double height = 20;
+	private double centerY = 100;
+	private double width = 150;
+	private double height = 25;
 	private boolean dispose = false;
-	private int signNumber = 0;
+	private int messageNumber = 0;
 		
-	public Sign() {
-		this(0.0, 0.0, 1);
+	public Message() {
+		this(0.0, 0.0, 0, 150, 25);
 	}
-	public Sign(double centerX, double centerY, int signNumber) {
+	public Message(double centerX, double centerY, int messageNumber, int width, int height) {
 		this.centerX = centerX;
 		this.centerY = centerY;
-		this.signNumber = signNumber;
+		this.messageNumber = messageNumber;
+		this.height = height;
+		this.width = width;
 		
-		if (sign == null) {
-			try {
-				sign = ImageIO.read(new File("res/sprites/Sign/sign.png"));
+		if (message == null) {
+			if(messageNumber == 1) {
+				try {
+					message = ImageIO.read(new File("res/sprites/Message/welcome.png"));
+				}
+				catch (IOException e) {
+					System.out.println(e.toString());
+				}
 			}
-			catch (IOException e) {
-				System.out.println(e.toString());
-			}		
+			if(messageNumber == 2) {
+				try {
+					message = ImageIO.read(new File("res/sprites/Message/uparrow.png"));
+				}
+				catch (IOException e) {
+					System.out.println(e.toString());
+				}
+			}
+			if(messageNumber == 3) {
+				try {
+					message = ImageIO.read(new File("res/sprites/Message/enemy.png"));
+				}
+				catch (IOException e) {
+					System.out.println(e.toString());
+				}
+			}
+			if(messageNumber == 4) {
+				try {
+					message = ImageIO.read(new File("res/sprites/Message/cherryheal.png"));
+				}
+				catch (IOException e) {
+					System.out.println(e.toString());
+				}
+			}
 		}
 		
 	}
 	
 
 	public Image getImage() {
-		return sign;
+		return message;
 	}
 	
 	public void setVisible(boolean visible) {
@@ -49,8 +77,8 @@ public class Sign implements DisplayableSprite, CollidingSprite {
 	public boolean getVisible() {
 		return this.visible;
 	}
-	public int getSignNumber() {
-		return this.signNumber;
+	public int getMessageNumber() {
+		return this.messageNumber;
 	}
 	
 	public double getMinX() {
@@ -95,7 +123,6 @@ public class Sign implements DisplayableSprite, CollidingSprite {
 	}
 
 	public void update(Universe universe, KeyboardInput keyboard, long actual_delta_time) {
-			
 	}
 
 

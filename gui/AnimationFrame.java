@@ -331,13 +331,21 @@ public class AnimationFrame extends JFrame {
 
 			for (DisplayableSprite activeSprite : nonBarrierSprites) {
 				DisplayableSprite sprite = activeSprite;
-				if (sprite.getVisible()) {
-					if (sprite.getImage() != null) {
-						g.drawImage(sprite.getImage(), translateX(sprite.getMinX()) - 20, translateY(sprite.getMinY()) - 40, scaleX(sprite.getWidth()) + 40, scaleY(sprite.getHeight()) + 40, null);
+
+				if(sprite.getClass() == Hearts.class) {
+					if (sprite.getVisible()) {
+						g.drawImage(sprite.getImage(), (int)sprite.getCenterX(), (int)sprite.getCenterY(), scaleX(sprite.getWidth()), scaleY(sprite.getHeight()), null);
 					}
-					else {
-						g.setColor(Color.BLUE);
-						g.fillRect(translateX((sprite.getMinX())), translateY(sprite.getMinY()), scaleX(sprite.getWidth()), scaleY(sprite.getHeight()));					
+				}
+				else {
+					if (sprite.getVisible()) {
+						if (sprite.getImage() != null) {
+							g.drawImage(sprite.getImage(), translateX(sprite.getMinX()) - 20, translateY(sprite.getMinY()) - 40, scaleX(sprite.getWidth()) + 40, scaleY(sprite.getHeight()) + 40, null);
+						}
+						else {
+							g.setColor(Color.BLUE);
+							g.fillRect(translateX((sprite.getMinX())), translateY(sprite.getMinY()), scaleX(sprite.getWidth()), scaleY(sprite.getHeight()));					
+						}
 					}
 				}
 

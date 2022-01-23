@@ -12,9 +12,9 @@ public class Hearts implements DisplayableSprite, CollidingSprite {
 	private double frameRate = 0.075;
 	private boolean visible = true;
 	private double centerX = 0;
-	private double centerY = 0;
-	private double width = 25;
-	private double height = 25;
+	private double centerY = 100;
+	private double width = 60;
+	private double height = 60;
 	private boolean dispose = false;
 	private int heartNumber = 0;
 		
@@ -22,13 +22,13 @@ public class Hearts implements DisplayableSprite, CollidingSprite {
 		this(0.0, 0.0, 0);
 	}
 	public Hearts(double centerX, double centerY, int heartNumber) {
-		this.centerX = centerX;
+		this.centerX = centerX + heartNumber * 75;
 		this.centerY = centerY;
 		this.heartNumber = heartNumber;
 		
 		if (heart == null) {
 			try {
-				heart = ImageIO.read(new File("res/sprites/Heart/heart.png"));
+				heart = ImageIO.read(new File("res/sprites/Heart/fancyheart.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -94,8 +94,30 @@ public class Hearts implements DisplayableSprite, CollidingSprite {
 	}
 
 	public void update(Universe universe, KeyboardInput keyboard, long actual_delta_time) {
-		this.centerX = AnimationFrame.getXCenter();
-		this.centerY = AnimationFrame.getYCenter();
+		if(heartNumber == 0) {
+			if(Player1.getHealth() >= 1) {
+				setVisible(true);
+			}
+			else {
+				setVisible(false);
+			}
+		}
+		if(heartNumber == 1) {
+			if(Player1.getHealth() >= 2) {
+				setVisible(true);
+			}
+			else {
+				setVisible(false);
+			}
+		}
+		if(heartNumber == 2) {
+			if(Player1.getHealth() == 3) {
+				setVisible(true);
+			}
+			else {
+				setVisible(false);
+			}
+		}
 	}
 
 

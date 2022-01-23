@@ -103,4 +103,10 @@ public class BarrierSprite implements DisplayableSprite {
 		
 	}
 
+
+	@Override
+	public void setDispose(boolean dispose) {
+		this.dispose = dispose;
+	}
+
 }

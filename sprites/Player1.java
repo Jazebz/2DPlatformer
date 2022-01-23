@@ -61,7 +61,7 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 	private double dashCoolDown = 0;
 	private boolean respawn = false;
 	private boolean hurt = false;
-	private int health = 3;
+	private static int health = 3;
 	
 	
 	public Player1() {
@@ -363,6 +363,7 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 				currentFrame = 0;
 				hurt = false;
 				if(health == 0) {
+					setRespawn(true);
 					respawn();
 				}
 				return hurtTwo;
@@ -634,28 +635,52 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 						sprite.getMaxX(), sprite.getMaxY())){
 					MappedUniverse.addNonBarrierSprite(new DeathItem(((Cherry) sprite).getCenterX(),((Cherry) sprite).getCenterY()));
 					((Cherry) sprite).setDispose(true);
-					if(this.health <= 3) {
-						this.health += 1;
+					if(health < 3) {
+						health += 1;
 					}
 					break;
 				}
 			}
 		}
-		//Respawn
-		if(this.centerY > 2500 || respawn == true) {
-			setRespawn(true);
-			respawn();
+		for (DisplayableSprite signSprite : universe.getNonBarrierSprites()) {
+			if(signSprite instanceof Sign) {
+				double distanceX = this.centerX - signSprite.getCenterX();
+				double distanceY = this.centerY - signSprite.getCenterY();
+				double radialDistance = Math.sqrt((distanceY * distanceY) + (distanceX * distanceX));
+				if (radialDistance <= 175) {
+					for (DisplayableSprite messageSprite : universe.getNonBarrierSprites()) {
+						if(messageSprite instanceof Message) {
+							if (((Sign) signSprite).getSignNumber() == ((Message)messageSprite).getMessageNumber()) {
+								((Message) messageSprite).setVisible(true);
+							}
+						}
+					}
+				}
+				else {
+					for (DisplayableSprite messageSprite : universe.getNonBarrierSprites()) {
+						if(messageSprite instanceof Message) {
+							if (((Sign) signSprite).getSignNumber() == ((Message)messageSprite).getMessageNumber()) {
+								((Message) messageSprite).setVisible(false);
+							}
+						}
+					}
+				}
+			}
 		}
+		//Respawn
+		//if(this.centerY > 2500 || respawn == true) {
+		//	setRespawn(true);
+		//	respawn();
+		//}
 	}
 	private void respawn() {
 		this.centerY = 550;
 		this.centerX = 500;
 		this.velocityY = 0;
 		this.health = 3;
-		setRespawn(false);
 		hurt = false;
 	}
-	private void setDispose(boolean dispose) {
+	public void setDispose(boolean dispose) {
 		this.dispose = dispose;
 	}
 	@Override
@@ -697,6 +722,9 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 	public void setRespawn(boolean respawn) {
 		this.respawn = respawn;
 		
+	}
+	public static int getHealth() {
+		return health;
 	}
 }
 
