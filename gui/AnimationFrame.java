@@ -226,7 +226,7 @@ public class AnimationFrame extends JFrame {
 				//REFRESH
 //				this.scale = universe.getScale();
 				this.repaint();
-				lblXCenterNum.setText(String.valueOf(player1.getCenterY()));
+				lblXCenterNum.setText(String.valueOf(player1.getCenterX()));
 			}
 
 			universe = animation.getNextUniverse();

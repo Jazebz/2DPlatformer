@@ -591,7 +591,7 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 		if(centerX > 8500) {
 			respawnX = 8550;
 		}
-		if(centerX > 4300) {
+		if(centerX > 4300 && respawnX != 8550) {
 			respawnX = 4350;
 		}
 		

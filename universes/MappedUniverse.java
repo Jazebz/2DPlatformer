@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Timer;
 import java.util.TimerTask;
 
 public class MappedUniverse implements Universe {
@@ -17,6 +18,7 @@ public class MappedUniverse implements Universe {
 	private ArrayList<DisplayableSprite> temporaryDisposalList = new ArrayList<DisplayableSprite>();
 	private double xCenter = 500;
 	private double yCenter = 0;
+	Timer timer = new Timer();
 
 	public MappedUniverse () {
 
@@ -43,9 +45,12 @@ public class MappedUniverse implements Universe {
 
 		nonBarrierSprites.add(new Sign(3500, Platforms.TILE_WIDTH * 2 + 490, 4));
 		nonBarrierSprites.add(new Message(3520, Platforms.TILE_WIDTH * 2 + 430, 4, 175, 25));
-		
+
 		nonBarrierSprites.add(new Sign(4450, Platforms.TILE_WIDTH * 2 + 490, 5));
 		nonBarrierSprites.add(new Message(4470, Platforms.TILE_WIDTH * 2 + 430, 5, 175, 25));
+		
+		nonBarrierSprites.add(new Sign(8500, Platforms.TILE_WIDTH * 2 + 490, 6));
+		nonBarrierSprites.add(new Message(8520, Platforms.TILE_WIDTH * 2 + 430, 6, 175, 25));
 		
 		nonBarrierSprites.add(new House(550, Platforms.TILE_WIDTH * 2 + 350));
 		nonBarrierSprites.add(new Hearts(75, 75, 0));
@@ -71,7 +76,17 @@ public class MappedUniverse implements Universe {
 		nonBarrierSprites.add(new Cherry(4050, Platforms.TILE_WIDTH * 2 + 350));
 		barrierSprites.addAll(barriers);
 		
-		
+		timer.schedule(new TimerTask() {
+			
+			public void run() {
+			//create random Y coords
+				if(boss.getDispose() == false) {
+					nonBarrierSprites.add(new Fireball(boss.getCenterX() - 50, boss.getCenterY()));
+				}
+			}
+	        //Amount of Time to start generating Fire (ms), Amount of Time between spawns (ms) 
+			}, 10000, 1000);
+
 	}
 
 	public double getScale() {

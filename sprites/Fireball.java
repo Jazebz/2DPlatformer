@@ -13,8 +13,10 @@ public class Fireball implements DisplayableSprite, CollidingSprite {
 	private boolean visible = true;
 	private double centerX = 0;
 	private double centerY = 0;
-	private double width = 25;
-	private double height = 25;
+	private double width = 50;
+	private double height = 20;
+	private double velocityX = -100;
+	private double velocityY = 0;
 	private boolean dispose = false;
 		
 	public Fireball() {
@@ -26,7 +28,7 @@ public class Fireball implements DisplayableSprite, CollidingSprite {
 		
 		if (cherryOne == null) {
 			try {
-				cherryOne = ImageIO.read(new File("res/sprites/Fireball/cherry-1.png"));
+				cherryOne = ImageIO.read(new File("res/sprites/Fireball/fireball.png"));
 			}
 			catch (IOException e) {
 				System.out.println(e.toString());
@@ -92,7 +94,10 @@ public class Fireball implements DisplayableSprite, CollidingSprite {
 	}
 
 	public void update(Universe universe, KeyboardInput keyboard, long actual_delta_time) {
-			
+		centerX -= 3;
+		if(centerX < 9300) {
+			setDispose(true);
+		}
 	}
 
 
