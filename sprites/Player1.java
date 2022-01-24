@@ -613,7 +613,6 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 						sprite.getMinX(), sprite.getMinY(),
 						sprite.getMaxX(), sprite.getMaxY())) {
 					if(this.getMaxY() >= (sprite.getMinY()) && this.getMaxY() <= sprite.getMinY()){
-						this.score += 100;
 						MappedUniverse.addNonBarrierSprite(new DeathSprite(((Enemy1) sprite).getCenterX(),((Enemy1) sprite).getCenterY()));
 						((Enemy1) sprite).setDispose(true);
 						if (keyboard.keyDown(32) || keyboard.keyDown(38)) {
@@ -630,6 +629,20 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 							currentFrame = 0;
 							hurt = true;
 						}
+					}
+				}
+			}
+		}
+		for (DisplayableSprite sprite : universe.getNonBarrierSprites()) {
+			if(sprite instanceof Fireball) {
+				if(CollisionDetection.overlaps(this.getMinX(), this.getMinY(),
+						this.getMaxX(), this.getMaxY(),
+						sprite.getMinX(), sprite.getMinY(),
+						sprite.getMaxX(), sprite.getMaxY())) {
+					if(health >= 1 && hurt == false) {
+						this.health -= 1;
+						currentFrame = 0;
+						hurt = true;
 					}
 				}
 			}

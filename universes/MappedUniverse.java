@@ -50,7 +50,7 @@ public class MappedUniverse implements Universe {
 		nonBarrierSprites.add(new Message(4470, Platforms.TILE_WIDTH * 2 + 430, 5, 175, 25));
 		
 		nonBarrierSprites.add(new Sign(8500, Platforms.TILE_WIDTH * 2 + 490, 6));
-		nonBarrierSprites.add(new Message(8520, Platforms.TILE_WIDTH * 2 + 430, 6, 175, 25));
+		nonBarrierSprites.add(new Message(8520, Platforms.TILE_WIDTH * 2 + 430, 6, 95, 25));
 		
 		nonBarrierSprites.add(new House(550, Platforms.TILE_WIDTH * 2 + 350));
 		nonBarrierSprites.add(new Hearts(75, 75, 0));
