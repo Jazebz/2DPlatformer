@@ -64,11 +64,22 @@ public class MappedUniverse implements Universe {
 		barrierSprites.add(new Enemy1(5600, Platforms.TILE_WIDTH * 2 + 350, 5450, 5800));
 		barrierSprites.add(new Enemy1(6000, Platforms.TILE_WIDTH * 2 + 350, 5850, 6200));
 		barrierSprites.add(new Enemy1(6400, Platforms.TILE_WIDTH * 2 + 350, 6250, 6600));
+		barrierSprites.add(new Enemy1(6800, Platforms.TILE_WIDTH * 2 + 350, 6715, 6950));
+		barrierSprites.add(new Enemy1(7100, Platforms.TILE_WIDTH * 2 + 350, 7000, 7250));
+		barrierSprites.add(new Enemy1(7350, Platforms.TILE_WIDTH * 2 + 350, 7300, 7550));
+		barrierSprites.add(new Enemy1(7650, Platforms.TILE_WIDTH * 2 + 350, 7600, 7950));
+
+		barrierSprites.add(new Enemy1(5150, Platforms.TILE_WIDTH * 2, 5150, 5350));
+		barrierSprites.add(new Enemy1(5600, Platforms.TILE_WIDTH * 2, 5450, 5700));
+		barrierSprites.add(new Enemy1(6100, Platforms.TILE_WIDTH * 2, 6000, 6250));
+		barrierSprites.add(new Enemy1(6600, Platforms.TILE_WIDTH * 2, 6500, 6750));
+		barrierSprites.add(new Enemy1(7150, Platforms.TILE_WIDTH * 2, 7000, 7300));
+		barrierSprites.add(new Enemy1(7400, Platforms.TILE_WIDTH * 2, 7300, 7600));
+		//barrierSprites.add(new Enemy1(6915, Platforms.TILE_WIDTH * 2, 6900, 7200));
+		barrierSprites.add(new Enemy1(7750, Platforms.TILE_WIDTH * 2, 7550, 7800));
 		
 		barrierSprites.add(boss);
 		
-		nonBarrierSprites.add(new Cherry(5575, Platforms.TILE_WIDTH * 2 + 150));
-		nonBarrierSprites.add(new Cherry(5525, Platforms.TILE_WIDTH * 2 + 150));
 		nonBarrierSprites.add(new Cherry(5625, Platforms.TILE_WIDTH * 2 + 150));
 		
 		nonBarrierSprites.add(new Cherry(3900, Platforms.TILE_WIDTH * 2 + 350));

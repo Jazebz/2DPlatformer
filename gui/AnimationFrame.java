@@ -240,7 +240,7 @@ public class AnimationFrame extends JFrame {
 	}
 
 	private void updateControls() {
-		this.lblTime.setText(Long.toString(elapsed_time));
+		this.lblTime.setText(Long.toString(elapsed_time/1000));
 		this.lblLevel.setText(Integer.toString(universeLevel));
 		if (universe != null) {
 			this.lblStatus.setText(universe.toString());
