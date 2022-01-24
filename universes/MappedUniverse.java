@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.TimerTask;
 
 public class MappedUniverse implements Universe {
 
@@ -8,6 +9,7 @@ public class MappedUniverse implements Universe {
 	private Background background = null;
 	private Background middleBackground = null;
 	private DisplayableSprite player1 = null;
+	private DisplayableSprite boss = null;
 	private ArrayList<DisplayableSprite> barrierSprites = new ArrayList<DisplayableSprite>();
 	private static ArrayList<DisplayableSprite> nonBarrierSprites = new ArrayList<DisplayableSprite>();
 	private ArrayList<DisplayableSprite> barrierDisposalList = new ArrayList<DisplayableSprite>();
@@ -25,13 +27,13 @@ public class MappedUniverse implements Universe {
 		ArrayList<DisplayableSprite> barriers = ((Platforms)platforms).getBarriers();
 		
 		player1 = new Player1(Platforms.TILE_HEIGHT * 2 + 500, Platforms.TILE_WIDTH * 2 + 350);
-		
+		boss = new Boss(9500, Platforms.TILE_WIDTH * 2 + 350);
 		barrierSprites.add(player1);
 		//barrierSprites.add(new Enemy1(1000, Platforms.TILE_WIDTH * 2 + 350, 750, 1250));
 		//barrierSprites.add(new Enemy1(2000, Platforms.TILE_WIDTH * 2 + 350, 1750, 2250));
 		//barrierSprites.add(new Enemy1(3000, Platforms.TILE_WIDTH * 2 + 350, 2750, 3250));
 		nonBarrierSprites.add(new Sign(875, Platforms.TILE_WIDTH * 2 + 490, 1));
-		nonBarrierSprites.add(new Message(895, Platforms.TILE_WIDTH * 2 + 430, 1, 175, 25));
+		nonBarrierSprites.add(new Message(905, Platforms.TILE_WIDTH * 2 + 430, 1, 200, 25));
 		
 		nonBarrierSprites.add(new Sign(1350, Platforms.TILE_WIDTH * 2 + 490, 2));
 		nonBarrierSprites.add(new Message(1370, Platforms.TILE_WIDTH * 2 + 430, 2, 150, 25));
@@ -43,17 +45,33 @@ public class MappedUniverse implements Universe {
 		nonBarrierSprites.add(new Message(3520, Platforms.TILE_WIDTH * 2 + 430, 4, 175, 25));
 		
 		nonBarrierSprites.add(new Sign(4450, Platforms.TILE_WIDTH * 2 + 490, 5));
+		nonBarrierSprites.add(new Message(4470, Platforms.TILE_WIDTH * 2 + 430, 5, 175, 25));
 		
 		nonBarrierSprites.add(new House(550, Platforms.TILE_WIDTH * 2 + 350));
 		nonBarrierSprites.add(new Hearts(75, 75, 0));
 		nonBarrierSprites.add(new Hearts(75, 75, 1));
 		nonBarrierSprites.add(new Hearts(75, 75, 2));
 		barrierSprites.add(new Enemy1(3000, Platforms.TILE_WIDTH * 2 + 350, 2750, 3250));
+
+		barrierSprites.add(new Enemy1(4750, Platforms.TILE_WIDTH * 2 + 350, 4700, 4930));
+		barrierSprites.add(new Enemy1(4750, Platforms.TILE_WIDTH * 2 + 350, 4650, 4930));
+		barrierSprites.add(new Enemy1(5000, Platforms.TILE_WIDTH * 2 + 350, 4935, 5400));
+		barrierSprites.add(new Enemy1(5600, Platforms.TILE_WIDTH * 2 + 350, 5450, 5800));
+		barrierSprites.add(new Enemy1(6000, Platforms.TILE_WIDTH * 2 + 350, 5850, 6200));
+		barrierSprites.add(new Enemy1(6400, Platforms.TILE_WIDTH * 2 + 350, 6250, 6600));
+		
+		barrierSprites.add(boss);
+		
+		nonBarrierSprites.add(new Cherry(5575, Platforms.TILE_WIDTH * 2 + 150));
+		nonBarrierSprites.add(new Cherry(5525, Platforms.TILE_WIDTH * 2 + 150));
+		nonBarrierSprites.add(new Cherry(5625, Platforms.TILE_WIDTH * 2 + 150));
+		
 		nonBarrierSprites.add(new Cherry(3900, Platforms.TILE_WIDTH * 2 + 350));
 		nonBarrierSprites.add(new Cherry(3975, Platforms.TILE_WIDTH * 2 + 350));
 		nonBarrierSprites.add(new Cherry(4050, Platforms.TILE_WIDTH * 2 + 350));
 		barrierSprites.addAll(barriers);
-
+		
+		
 	}
 
 	public double getScale() {

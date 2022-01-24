@@ -6,7 +6,7 @@ import javax.imageio.ImageIO;
 
 public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprite {
 	private double ACCCELERATION_Y = 1000; 	//PIXELS PER SECOND PER SECOND
-	private double MAX_VELOCITY_X = 300;	//PIXELS PER SECOND
+	private double MAX_VELOCITY_X = 400;	//PIXELS PER SECOND
 	private double maxVelocity = 400;
 
 	private boolean isJumping = false;
@@ -59,6 +59,7 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 	private int currentAnimationX = 1;
 	private boolean idle = true;
 	private double dashCoolDown = 0;
+	private double respawnX = 500.0;
 	private boolean respawn = false;
 	private boolean hurt = false;
 	private static int health = 3;
@@ -587,6 +588,12 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 		else {
 			
 		}
+		if(centerX > 8500) {
+			respawnX = 8550;
+		}
+		if(centerX > 4300) {
+			respawnX = 4350;
+		}
 		
 		collisionDetection.calculate2DBounce(bounce, this, universe.getBarrierSprites(), velocityX, velocityY, actual_delta_time);
 		this.centerX = bounce.newX + (width / 2);
@@ -601,14 +608,42 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 		}
 		for (DisplayableSprite sprite : universe.getBarrierSprites()) {
 			if(sprite instanceof Enemy1) {
-				if(CollisionDetection.overlaps(this.getMinX() - 2, this.getMinY() - 2,
-						this.getMaxX() + 2, this.getMaxY() + 2,
+				if(CollisionDetection.overlaps(this.getMinX() - 1, this.getMinY() - 1,
+						this.getMaxX() + 1, this.getMaxY(),
 						sprite.getMinX(), sprite.getMinY(),
 						sprite.getMaxX(), sprite.getMaxY())) {
 					if(this.getMaxY() >= (sprite.getMinY()) && this.getMaxY() <= sprite.getMinY()){
 						this.score += 100;
 						MappedUniverse.addNonBarrierSprite(new DeathSprite(((Enemy1) sprite).getCenterX(),((Enemy1) sprite).getCenterY()));
 						((Enemy1) sprite).setDispose(true);
+						if (keyboard.keyDown(32) || keyboard.keyDown(38)) {
+							this.velocityY -= INITIAL_JUMP_VELOCITY;
+						}
+						else {
+							this.velocityY -= 250;
+						}
+						break;
+					}
+					else {
+						if(health >= 1 && hurt == false) {
+							this.health -= 1;
+							currentFrame = 0;
+							hurt = true;
+						}
+					}
+				}
+			}
+		}
+		for (DisplayableSprite sprite : universe.getBarrierSprites()) {
+			if(sprite instanceof Boss) {
+				if(CollisionDetection.overlaps(this.getMinX() - 1, this.getMinY() - 1,
+						this.getMaxX() + 1, this.getMaxY(),
+						sprite.getMinX(), sprite.getMinY(),
+						sprite.getMaxX(), sprite.getMaxY())) {
+					if(this.getMaxY() >= (sprite.getMinY()) && this.getMaxY() <= sprite.getMinY()){
+						this.score += 100;
+						MappedUniverse.addNonBarrierSprite(new DeathSprite(((Boss) sprite).getCenterX(),((Boss) sprite).getCenterY()));
+						((Boss) sprite).setDispose(true);
 						if (keyboard.keyDown(32) || keyboard.keyDown(38)) {
 							this.velocityY -= INITIAL_JUMP_VELOCITY;
 						}
@@ -675,7 +710,7 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 	}
 	private void respawn() {
 		this.centerY = 550;
-		this.centerX = 500;
+		this.centerX = respawnX;
 		this.velocityY = 0;
 		this.health = 3;
 		hurt = false;

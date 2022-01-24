@@ -4,76 +4,40 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Message implements DisplayableSprite, CollidingSprite {
+public class Fireball implements DisplayableSprite, CollidingSprite {
 
-	Image message = null;
+	Image cherryOne = null;
 
-	private boolean visible = false;
+	private double currentFrame = 0;
+	private double frameRate = 0.075;
+	private boolean visible = true;
 	private double centerX = 0;
-	private double centerY = 100;
-	private double width = 150;
+	private double centerY = 0;
+	private double width = 25;
 	private double height = 25;
 	private boolean dispose = false;
-	private int messageNumber = 0;
 		
-	public Message() {
-		this(0.0, 0.0, 0, 150, 25);
+	public Fireball() {
+		this(0.0, 0.0);
 	}
-	public Message(double centerX, double centerY, int messageNumber, int width, int height) {
+	public Fireball(double centerX, double centerY) {
 		this.centerX = centerX;
 		this.centerY = centerY;
-		this.messageNumber = messageNumber;
-		this.height = height;
-		this.width = width;
 		
-		if (message == null) {
-			if(messageNumber == 1) {
-				try {
-					message = ImageIO.read(new File("res/sprites/Message/welcome.png"));
-				}
-				catch (IOException e) {
-					System.out.println(e.toString());
-				}
+		if (cherryOne == null) {
+			try {
+				cherryOne = ImageIO.read(new File("res/sprites/Fireball/cherry-1.png"));
 			}
-			if(messageNumber == 2) {
-				try {
-					message = ImageIO.read(new File("res/sprites/Message/uparrow.png"));
-				}
-				catch (IOException e) {
-					System.out.println(e.toString());
-				}
-			}
-			if(messageNumber == 3) {
-				try {
-					message = ImageIO.read(new File("res/sprites/Message/enemy.png"));
-				}
-				catch (IOException e) {
-					System.out.println(e.toString());
-				}
-			}
-			if(messageNumber == 4) {
-				try {
-					message = ImageIO.read(new File("res/sprites/Message/cherryheal.png"));
-				}
-				catch (IOException e) {
-					System.out.println(e.toString());
-				}
-			}
-			if(messageNumber == 5) {
-				try {
-					message = ImageIO.read(new File("res/sprites/Message/begin.png"));
-				}
-				catch (IOException e) {
-					System.out.println(e.toString());
-				}
-			}
+			catch (IOException e) {
+				System.out.println(e.toString());
+			}		
 		}
 		
 	}
 	
 
 	public Image getImage() {
-		return message;
+		return cherryOne;
 	}
 	
 	public void setVisible(boolean visible) {
@@ -84,9 +48,6 @@ public class Message implements DisplayableSprite, CollidingSprite {
 	
 	public boolean getVisible() {
 		return this.visible;
-	}
-	public int getMessageNumber() {
-		return this.messageNumber;
 	}
 	
 	public double getMinX() {
@@ -131,6 +92,7 @@ public class Message implements DisplayableSprite, CollidingSprite {
 	}
 
 	public void update(Universe universe, KeyboardInput keyboard, long actual_delta_time) {
+			
 	}
 
 
