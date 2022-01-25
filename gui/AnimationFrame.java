@@ -27,10 +27,7 @@ public class AnimationFrame extends JFrame {
 	private JButton btnPauseRun;
 	private JLabel lblTimeLabel;
 	private JLabel lblTime;
-	private JLabel lblLevelLabel;
-	private JLabel lblLevel;
 	private JLabel lblStatus;
-	private JLabel lblXCenter;
 	private JLabel lblXCenterNum;
 
 	private static boolean stop = false;
@@ -121,20 +118,6 @@ public class AnimationFrame extends JFrame {
 		getContentPane().add(lblTime);
 		getContentPane().setComponentZOrder(lblTime, 0);
 
-		lblLevelLabel = new JLabel("Level: ");
-		lblLevelLabel.setForeground(Color.YELLOW);
-		lblLevelLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
-		lblLevelLabel.setBounds(578, 22, 128, 30);
-		getContentPane().add(lblLevelLabel);
-		getContentPane().setComponentZOrder(lblLevelLabel, 0);
-
-		lblLevel = new JLabel("1");
-		lblLevel.setForeground(Color.YELLOW);
-		lblLevel.setFont(new Font("Tahoma", Font.BOLD, 30));
-		lblLevel.setBounds(722, 22, 48, 30);
-		getContentPane().add(lblLevel);
-		getContentPane().setComponentZOrder(lblLevel, 0);
-
 		lblStatus = new JLabel("Status");
 		lblStatus.setForeground(Color.WHITE);
 		lblStatus.setFont(new Font("Tahoma", Font.BOLD, 30));
@@ -142,19 +125,6 @@ public class AnimationFrame extends JFrame {
 		getContentPane().add(lblStatus);
 		getContentPane().setComponentZOrder(lblStatus, 0);
 		
-		lblXCenter = new JLabel("XCenter");
-		lblXCenter.setForeground(Color.YELLOW);
-		lblXCenter.setFont(new Font("Tahoma", Font.BOLD, 30));
-		lblXCenter.setBounds(300, 22, 128, 30);
-		getContentPane().add(lblXCenter);
-		getContentPane().setComponentZOrder(lblXCenter, 0);
-		
-		lblXCenterNum = new JLabel("0");
-		lblXCenterNum.setForeground(Color.YELLOW);
-		lblXCenterNum.setFont(new Font("Tahoma", Font.BOLD, 30));
-		lblXCenterNum.setBounds(425, 22, 128, 30);
-		getContentPane().add(lblXCenterNum);
-		getContentPane().setComponentZOrder(lblXCenterNum, 0);
 
 	}
 
@@ -187,7 +157,7 @@ public class AnimationFrame extends JFrame {
 			skyBackground = universe.getBackground();
 			greenBackground = universe.getBackgroundMiddle();
 			centreOnPlayer = universe.centerOnPlayer();
-//			this.scale = universe.getScale();
+			this.scale = universe.getScale();
 			this.xCenter = universe.getXCenter();
 			this.yCenter = universe.getYCenter();
 
@@ -224,9 +194,8 @@ public class AnimationFrame extends JFrame {
 				updateControls();
 
 				//REFRESH
-//				this.scale = universe.getScale();
+				this.scale = universe.getScale();
 				this.repaint();
-				lblXCenterNum.setText(String.valueOf(player1.getCenterX()));
 			}
 
 			universe = animation.getNextUniverse();
@@ -241,9 +210,8 @@ public class AnimationFrame extends JFrame {
 
 	private void updateControls() {
 		this.lblTime.setText(Long.toString(elapsed_time/1000));
-		this.lblLevel.setText(Integer.toString(universeLevel));
 		if (universe != null) {
-			this.lblStatus.setText(universe.toString());
+			this.lblStatus.setText("Sunnyland");
 		}
 
 	}

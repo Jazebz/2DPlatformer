@@ -558,7 +558,7 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 	public void update(Universe universe, KeyboardInput keyboard, long actual_delta_time) {
 		boolean onGround = isOnGround(universe);
 			if(keyboard.keyDown(16)) {
-				speed = 1.5;
+				speed = 1.2;
 			}
 			else {
 				speed = 1;
@@ -657,6 +657,8 @@ public class Player1 implements DisplayableSprite, MovableSprite, CollidingSprit
 						this.score += 100;
 						MappedUniverse.addNonBarrierSprite(new DeathSprite(((Boss) sprite).getCenterX(),((Boss) sprite).getCenterY()));
 						((Boss) sprite).setDispose(true);
+						MappedUniverse.addNonBarrierSprite(new Sign(9700, Platforms.TILE_WIDTH * 2 + 490, 7));
+						MappedUniverse.addNonBarrierSprite(new Message(9730, Platforms.TILE_WIDTH * 2 + 430, 7, 225, 25));
 						if (keyboard.keyDown(32) || keyboard.keyDown(38)) {
 							this.velocityY -= INITIAL_JUMP_VELOCITY;
 						}

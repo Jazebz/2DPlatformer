@@ -75,6 +75,14 @@ public class Message implements DisplayableSprite, CollidingSprite {
 					System.out.println(e.toString());
 				}
 			}
+			if(messageNumber == 7) {
+				try {
+					message = ImageIO.read(new File("res/sprites/Message/youwin.png"));
+				}
+				catch (IOException e) {
+					System.out.println(e.toString());
+				}
+			}
 		}
 		
 	}
